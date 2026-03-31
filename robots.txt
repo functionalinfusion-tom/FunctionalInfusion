@@ -1,24 +1,20 @@
-# FunctionalInfusion — robots.txt
-# Version: 1.0.0
-# https://functionalinfusion.com/robots.txt
+# Functional Infusion — robots.txt
+# Version: 2.0.0
 
 User-agent: *
 Allow: /
 
-# Disallow admin, API, and sensitive paths
 Disallow: /admin/
 Disallow: /api/
 Disallow: /csp-report/
-Disallow: /.well-known/security.txt
+Disallow: /assets/og-image.png
 
-# Disallow staging/dev assets from being indexed
-Disallow: /*.json$
+# Block direct JSON access (version info, manifest OK via manifest.json)
+Disallow: /version.json
 
-# Allow specific JSON for structured data (manifest)
+# Allow manifest
 Allow: /manifest.json
 
-# Crawl delay (optional — reduce load on shared hosting)
-Crawl-delay: 5
+Crawl-delay: 3
 
-# Sitemap reference
 Sitemap: https://functionalinfusion.com/sitemap.xml

@@ -4,39 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';
-                 img-src 'self' data:; font-src 'self'; connect-src 'self';
-                 frame-src 'none'; base-uri 'self'; form-action 'self';
-                 upgrade-insecure-requests;">
+        content="default-src 'self'; script-src 'self' https://unpkg.com;
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;
+                 connect-src 'self'; frame-src 'none'; base-uri 'self';
+                 form-action 'self'; upgrade-insecure-requests;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 
-  <title>About Us | FunctionalInfusion</title>
+  <title>About Us | Functional Infusion</title>
   <meta name="description"
-        content="Learn about FunctionalInfusion — our mission, our board-certified team, and our commitment to evidence-based, patient-centered infusion therapy.">
+        content="Functional Infusion was built in Wisconsin to serve brands that refuse to cut corners. Learn about our story, values, and why we built the facility we did.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://functionalinfusion.com/about.html">
-
-  <meta property="og:title"       content="About FunctionalInfusion">
-  <meta property="og:description" content="Meet our clinical team and learn about our patient-first approach to infusion therapy.">
+  <meta property="og:title"       content="About Functional Infusion">
+  <meta property="og:description" content="Built in Wisconsin. Built for Brands. Learn about our story, values, and co-packing philosophy.">
   <meta property="og:url"         content="https://functionalinfusion.com/about.html">
   <meta property="og:type"        content="website">
 
-  <!-- Structured Data — About Page -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    "name": "About FunctionalInfusion",
+    "name": "About Functional Infusion",
     "url": "https://functionalinfusion.com/about.html",
-    "description": "FunctionalInfusion's mission, team, and values.",
     "isPartOf": { "@type": "WebSite", "url": "https://functionalinfusion.com" }
   }
   </script>
-
-  <!-- Breadcrumb -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,367 +44,309 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/about.css">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-
-  <!-- ═══ Navigation ══════════════════════════════════════ -->
-  <header>
-    <nav class="site-nav" aria-label="Primary navigation">
-      <div class="container nav-inner">
-        <a class="nav-logo" href="index.html" aria-label="FunctionalInfusion — Home">
-          <img src="fulllogo_animated.gif" alt="FunctionalInfusion logo"
-               width="120" height="48" loading="eager">
-        </a>
-        <ul class="nav-links" id="nav-menu" role="list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html" aria-current="page">About Us</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="careers.html">Careers</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <a class="btn btn-primary btn-sm nav-cta" href="contact.html">Book Consultation</a>
-        <button class="nav-toggle" id="nav-toggle"
-                aria-expanded="false" aria-controls="nav-menu"
-                aria-label="Open navigation menu">
+<!-- Nav (shared) -->
+<header>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="container nav-inner">
+      <a class="nav-logo" href="index.html" aria-label="Functional Infusion — Home">
+        <img src="fulllogo_animated.gif" alt="Functional Infusion" width="120" height="48" loading="eager">
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="about.html" aria-current="page">About Us</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="services-menu">
+            Services
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" id="services-menu" role="menu">
+            <a href="services.html#canning" role="menuitem">Beverage Canning</a>
+            <a href="services.html#shots"   role="menuitem">Functional Shots</a>
+            <a href="services.html#gummies" role="menuitem">Gummy Manufacturing</a>
+          </div>
+        </li>
+        <li><a class="nav-link" href="process.html">Our Process</a></li>
+        <li><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="contact.html">Request a Quote</a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">
           <span></span><span></span><span></span>
         </button>
       </div>
+    </div>
+  </nav>
+  <div class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <nav class="nav-drawer-links">
+      <a class="nav-drawer-link" href="index.html">Home</a>
+      <a class="nav-drawer-link" href="about.html">About Us</a>
+      <span class="nav-drawer-link" style="font-weight:600;color:var(--color-text-muted);font-size:var(--text-sm);">Services</span>
+      <div class="nav-drawer-sub">
+        <a href="services.html#canning">Beverage Canning</a>
+        <a href="services.html#shots">Functional Shots</a>
+        <a href="services.html#gummies">Gummy Manufacturing</a>
+      </div>
+      <a class="nav-drawer-link" href="process.html">Our Process</a>
+      <a class="nav-drawer-link" href="contact.html">Contact</a>
     </nav>
-  </header>
+    <div class="nav-drawer-cta">
+      <a class="btn btn-primary" href="contact.html" style="width:100%;justify-content:center;">Request a Quote</a>
+    </div>
+  </div>
+</header>
 
-  <!-- ═══ Main ════════════════════════════════════════════ -->
-  <main id="main-content">
+<main id="main-content">
 
-    <!-- ── Page Hero ────────────────────────────────────── -->
-    <section class="page-hero" aria-labelledby="page-hero-heading">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="index.html">Home</a>
-          <span class="sep" aria-hidden="true">/</span>
-          <span aria-current="page">About Us</span>
-        </nav>
-        <h1 id="page-hero-heading">About FunctionalInfusion</h1>
-        <p class="lead">
-          We are a team of passionate clinicians dedicated to advancing wellness
-          through personalized, evidence-based infusion therapy.
-        </p>
-      </div>
-    </section>
-
-    <!-- ── Our Story ─────────────────────────────────────── -->
-    <section class="section" aria-labelledby="story-heading">
-      <div class="container">
-        <div class="grid-2" style="align-items:center;gap:4rem;">
-          <div>
-            <span class="eyebrow"
-                  style="display:inline-block;font-size:0.875rem;font-weight:600;
-                         letter-spacing:0.1em;text-transform:uppercase;
-                         color:var(--color-accent);margin-bottom:1rem;">
-              Our Story
-            </span>
-            <h2 id="story-heading">Founded on a Mission to Heal</h2>
-            <p class="lead" style="margin-block:1.5rem 1.25rem;">
-              FunctionalInfusion was founded with a single purpose: to make
-              advanced infusion therapy accessible, personal, and effective for
-              every patient we serve.
-            </p>
-            <p style="color:var(--color-text-muted);margin-bottom:1.25rem;line-height:1.75;">
-              [WIREFRAME: Company origin story — update with actual history,
-              founding year, and founder's background from marketing guidelines.]
-            </p>
-            <p style="color:var(--color-text-muted);line-height:1.75;">
-              Today, we serve thousands of patients through our personalized
-              protocols, combining the best of functional medicine with the
-              precision of modern infusion science.
-            </p>
-          </div>
-          <div aria-hidden="true"
-               style="background:var(--color-placeholder);border-radius:var(--radius-lg);
-                      height:420px;border:2px dashed var(--color-border);
-                      display:flex;flex-direction:column;align-items:center;
-                      justify-content:center;gap:1rem;
-                      color:var(--color-wire-label);font-size:0.875rem;">
-            <span style="font-size:3rem;">🏥</span>
-            <p>[WIREFRAME: Clinic / founder photo]</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Stats ─────────────────────────────────────────── -->
-    <section class="stats-bar" aria-label="Company milestones">
-      <div class="container">
-        <div class="grid-4">
-          <div class="stat-card">
-            <span class="stat-number" data-count="5000">0</span>
-            <span class="stat-label">Patients Served</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number" data-count="10">0</span>
-            <span class="stat-label">Years in Practice</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number" data-count="20">0</span>
-            <span class="stat-label">Certified Clinicians</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number" data-count="98">0</span>
-            <span class="stat-label">% Patient Satisfaction</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Mission / Vision / Values ────────────────────── -->
-    <section class="section section--alt" aria-labelledby="values-heading">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">What Drives Us</span>
-          <h2 id="values-heading">Mission, Vision &amp; Values</h2>
-        </div>
-
-        <div class="grid-3" style="margin-bottom:3rem;">
-          <div class="card">
-            <div class="card-icon" aria-hidden="true">🎯</div>
-            <h3>Our Mission</h3>
-            <p>
-              To deliver transformative infusion therapy through personalized,
-              clinically excellent care that empowers patients to achieve optimal
-              health and quality of life.
-            </p>
-          </div>
-          <div class="card">
-            <div class="card-icon" aria-hidden="true">🔭</div>
-            <h3>Our Vision</h3>
-            <p>
-              To be the most trusted name in functional infusion therapy —
-              setting the standard for patient outcomes, clinical innovation,
-              and compassionate care nationwide.
-            </p>
-          </div>
-          <div class="card">
-            <div class="card-icon" aria-hidden="true">💡</div>
-            <h3>Our Philosophy</h3>
-            <p>
-              We treat the whole person, not just symptoms. Every protocol
-              starts with listening — understanding your goals, your history,
-              and your unique biology.
-            </p>
-          </div>
-        </div>
-
-        <div class="values-grid">
-          <div class="value-item">
-            <h4>Integrity</h4>
-            <p>We are transparent in our recommendations and honest about what
-               infusion therapy can and cannot do for you.</p>
-          </div>
-          <div class="value-item">
-            <h4>Excellence</h4>
-            <p>Clinical precision in every infusion. We follow evidence-based
-               protocols and continuously update our practices.</p>
-          </div>
-          <div class="value-item">
-            <h4>Compassion</h4>
-            <p>Every patient is treated with dignity, respect, and genuine care
-               from first contact to final follow-up.</p>
-          </div>
-          <div class="value-item">
-            <h4>Innovation</h4>
-            <p>We invest in the latest research and technologies to bring you
-               the most effective treatments available.</p>
-          </div>
-          <div class="value-item">
-            <h4>Privacy</h4>
-            <p>Your health information is protected with enterprise-grade
-               security practices at every touchpoint.</p>
-          </div>
-          <div class="value-item">
-            <h4>Accessibility</h4>
-            <p>We are committed to making high-quality infusion therapy
-               available to as many patients as possible.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Meet the Team ─────────────────────────────────── -->
-    <section class="section" aria-labelledby="team-heading">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Our People</span>
-          <h2 id="team-heading">Meet Our Clinical Team</h2>
-          <p>Board-certified professionals who bring expertise, empathy,
-             and a commitment to your best outcomes.</p>
-        </div>
-
-        <div class="grid-4">
-
-          <article class="card team-card">
-            <div class="avatar" aria-hidden="true">👨‍⚕️</div>
-            <h4>[Medical Director Name]</h4>
-            <p class="role">Medical Director, MD</p>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);margin-top:0.75rem;">
-              [WIREFRAME: Bio — board certifications, specialties, years of experience]
-            </p>
-          </article>
-
-          <article class="card team-card">
-            <div class="avatar" aria-hidden="true">👩‍⚕️</div>
-            <h4>[Clinical Lead Name]</h4>
-            <p class="role">Clinical Lead, RN</p>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);margin-top:0.75rem;">
-              [WIREFRAME: Bio — certifications, clinical focus, patient care philosophy]
-            </p>
-          </article>
-
-          <article class="card team-card">
-            <div class="avatar" aria-hidden="true">🧑‍⚕️</div>
-            <h4>[Clinician Name]</h4>
-            <p class="role">Infusion Specialist, NP</p>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);margin-top:0.75rem;">
-              [WIREFRAME: Bio — functional medicine training, specialty areas]
-            </p>
-          </article>
-
-          <article class="card team-card">
-            <div class="avatar" aria-hidden="true">👩‍🔬</div>
-            <h4>[Wellness Coordinator]</h4>
-            <p class="role">Wellness Coordinator</p>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);margin-top:0.75rem;">
-              [WIREFRAME: Bio — patient coordination, wellness program design]
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Accreditations ─────────────────────────────────── -->
-    <section class="section section--alt" aria-labelledby="accred-heading">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Certifications &amp; Accreditations</span>
-          <h2 id="accred-heading">You're in Qualified Hands</h2>
-          <p>FunctionalInfusion meets and exceeds all applicable regulatory,
-             clinical, and safety standards.</p>
-        </div>
-
-        <div class="grid-4">
-          <div class="card" style="text-align:center;">
-            <div style="font-size:2.5rem;margin-bottom:1rem;" aria-hidden="true">🏅</div>
-            <h4>[Accreditation 1]</h4>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);">
-              [WIREFRAME: Licensing body / certification name]
-            </p>
-          </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:2.5rem;margin-bottom:1rem;" aria-hidden="true">🏅</div>
-            <h4>[Accreditation 2]</h4>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);">
-              [WIREFRAME: Licensing body / certification name]
-            </p>
-          </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:2.5rem;margin-bottom:1rem;" aria-hidden="true">🔒</div>
-            <h4>HIPAA Compliant</h4>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);">
-              Patient data protected under full HIPAA compliance protocols.
-            </p>
-          </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:2.5rem;margin-bottom:1rem;" aria-hidden="true">✅</div>
-            <h4>State Licensed</h4>
-            <p style="font-size:0.875rem;color:var(--color-text-muted);">
-              Fully licensed and inspected by all applicable state health boards.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── CTA ───────────────────────────────────────────── -->
-    <section class="cta-banner" aria-labelledby="cta-about-heading">
-      <div class="container">
-        <h2 id="cta-about-heading">Ready to Experience the Difference?</h2>
-        <p>Join thousands of patients who've transformed their health with
-           FunctionalInfusion.</p>
-        <div class="btn-group">
-          <a class="btn btn-white btn-lg" href="contact.html">Book a Consultation</a>
-          <a class="btn btn-outline btn-lg"
-             style="color:white;border-color:rgba(255,255,255,0.5);"
-             href="services.html">Explore Services</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ═══ Footer ══════════════════════════════════════════ -->
-  <footer class="site-footer" aria-label="Site footer">
+  <!-- ── Hero ─────────────────────────────────────────────── -->
+  <section class="about-hero" aria-labelledby="about-hero-heading">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="fulllogo_animated.gif" alt="FunctionalInfusion" height="40" loading="lazy">
-          <p>Personalized infusion therapy and functional wellness — science-backed, compassion-driven.</p>
-          <p style="margin-top:1rem;" class="security-badge">
-            <span aria-hidden="true">🔒</span> Secured &amp; HIPAA-conscious
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span aria-current="page">About Us</span>
+      </nav>
+      <div class="about-hero-inner">
+        <div>
+          <h1 id="about-hero-heading" class="hero-headline">
+            Built in Wisconsin.<br>
+            Built for Brands.
+          </h1>
+          <p>
+            Functional Infusion was founded on a simple belief: the best products
+            start with simple, honest ingredients — and the best co-packers operate
+            the same way. We built a facility in the heart of Wisconsin to serve brands
+            that refuse to cut corners.
           </p>
         </div>
-        <nav class="footer-col" aria-label="Site pages">
-          <h5>Pages</h5>
-          <ul role="list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="careers.html">Careers</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-          </ul>
-        </nav>
-        <nav class="footer-col" aria-label="Our services">
-          <h5>Services</h5>
-          <ul role="list">
-            <li><a href="services.html#iv-therapy">IV Nutrient Therapy</a></li>
-            <li><a href="services.html#functional">Functional Medicine</a></li>
-            <li><a href="services.html#recovery">Energy &amp; Recovery</a></li>
-            <li><a href="services.html#immune">Immune Support</a></li>
-            <li><a href="services.html#detox">Detox &amp; Rejuvenation</a></li>
-          </ul>
-        </nav>
-        <div class="footer-col">
-          <h5>Contact</h5>
-          <ul role="list">
-            <li style="font-size:0.875rem;color:rgba(255,255,255,0.6);">
-              📍 [Address — update from marketing guide]
-            </li>
-            <li><a href="tel:+10000000000">📞 (000) 000-0000</a></li>
-            <li><a href="mailto:info@functionalinfusion.com">✉ info@functionalinfusion.com</a></li>
-          </ul>
+        <div class="photo-placeholder" aria-label="Facility or team photograph — coming soon">
+          <i data-lucide="image" aria-hidden="true"></i>
+          <span>Facility Photo</span>
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(255,255,255,0.1);">
-      <div class="container footer-bottom">
-        <p>&copy; <span id="year"></span> FunctionalInfusion. All rights reserved.</p>
-        <nav class="footer-legal" aria-label="Legal pages">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Use</a>
-          <a href="hipaa.html">HIPAA Notice</a>
-          <a href="sitemap.xml">Sitemap</a>
-        </nav>
+  </section>
+
+  <!-- ── Our Story ──────────────────────────────────────────── -->
+  <section class="section section--white" aria-labelledby="story-heading">
+    <div class="container">
+      <div class="story-body">
+        <span class="section-label">Our Story</span>
+        <h2 id="story-heading" class="reveal">From Hemp Soda to Full-Service Co-Packing</h2>
+
+        <div class="reveal" data-delay="80">
+          <p>
+            Functional Infusion started as a hemp-infused soda tolling operation — small
+            batches, big ambitions, and a deep belief that functional beverages deserved a
+            manufacturing partner as intentional as the brands making them. That early work
+            taught us the fundamentals: traceability matters, documentation is protection,
+            and every client's formula deserves the same precision regardless of run size.
+          </p>
+          <p>
+            That foundation grew into a full-service co-packing operation. Today we run three
+            dedicated production lines — beverage canning, functional shot filling, and gummy
+            manufacturing — with documented SOPs on every run and full lot-level traceability
+            from raw ingredient intake to outbound pallet.
+          </p>
+          <p>
+            "Simple Ingredients. Naturally Functional." isn't just a tagline — it's an
+            operating principle. Every SOP we write, every QC record we keep, every batch
+            we run reflects that commitment. We don't take shortcuts, and we don't work with
+            brands that do.
+          </p>
+        </div>
+
+        <blockquote class="pull-quote reveal">
+          "Your brand's name is on the label.<br>
+          Our process is what protects it."
+        </blockquote>
+
+        <div class="reveal">
+          <p>
+            Waupaca, Wisconsin is centrally located for Midwest freight — a deliberate
+            choice that gives our clients shipping cost advantages whether they're moving
+            product to Chicago, Minneapolis, or the coasts. The facility was designed from
+            day one for scale: not just for where brands start, but for where they're going.
+          </p>
+        </div>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script src="js/security.js" defer></script>
-  <script src="js/main.js" defer></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- ── Values ────────────────────────────────────────────── -->
+  <section class="section section--tint" aria-labelledby="values-heading">
+    <div class="container">
+      <div class="section-header section-header--centered reveal">
+        <span class="section-label">What We Stand For</span>
+        <h2 id="values-heading">Three principles. No exceptions.</h2>
+      </div>
 
+      <div class="grid-3">
+        <article class="card reveal" data-delay="0">
+          <div class="card-icon" aria-hidden="true">
+            <i data-lucide="eye"></i>
+          </div>
+          <h3>Transparency</h3>
+          <p>
+            You'll always know what's in your product, what the batch number is,
+            and where every ingredient came from. No black boxes. No guesswork.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="80">
+          <div class="card-icon" aria-hidden="true">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <h3>Craft Discipline</h3>
+          <p>
+            We run strict SOPs and document everything. Craft quality doesn't
+            mean casual process — it means rigorous process that produces
+            consistent, beautiful results.
+          </p>
+        </article>
+
+        <article class="card reveal" data-delay="160">
+          <div class="card-icon" aria-hidden="true">
+            <i data-lucide="handshake"></i>
+          </div>
+          <h3>Partnership</h3>
+          <p>
+            We're not just a vendor. We're invested in your brand's success from
+            pilot run to national rollout. When you win, we win.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Facility Facts ─────────────────────────────────────── -->
+  <section class="section section--dark" aria-labelledby="facility-heading">
+    <div class="container">
+      <div class="section-header section-header--centered reveal">
+        <span class="section-label" style="color:var(--color-primary-light);">The Facility</span>
+        <h2 id="facility-heading" style="color:var(--color-white);">At a Glance</h2>
+      </div>
+      <dl class="facility-facts-grid reveal">
+        <div class="facility-fact">
+          <dt>Location</dt>
+          <dd>Waupaca, WI — centrally located for Midwest freight</dd>
+        </div>
+        <div class="facility-fact">
+          <dt>Production Lines</dt>
+          <dd>Beverage Canning · Shot Filling · Gummy Manufacturing</dd>
+        </div>
+        <div class="facility-fact">
+          <dt>Additional Services</dt>
+          <dd>3PL Fulfillment · Labeling · Inventory Management</dd>
+        </div>
+        <div class="facility-fact">
+          <dt>Minimum Order Qty</dt>
+          <dd>Micro batch friendly — scale at your own pace</dd>
+        </div>
+        <div class="facility-fact">
+          <dt>Traceability</dt>
+          <dd>Full lot-level documentation on every production run</dd>
+        </div>
+        <div class="facility-fact">
+          <dt>Quality Control</dt>
+          <dd>Documented SOPs · QC Hold before release · COA on request</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────── -->
+  <section class="cta-band" aria-labelledby="about-cta-heading">
+    <div class="container">
+      <h2 id="about-cta-heading" class="reveal">
+        Want to see the facility in action?
+      </h2>
+      <p class="reveal" data-delay="80">
+        Request a quote and tell us about your formula.
+        We'll walk you through how we'd run it.
+      </p>
+      <div class="btn-group btn-group--centered reveal" data-delay="160">
+        <a class="btn btn-secondary" href="contact.html">Request a Quote</a>
+        <a class="btn btn-ghost" href="process.html">See Our Process →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer (shared) -->
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="fulllogo_animated.gif" alt="Functional Infusion" height="40" loading="lazy">
+        <p class="tagline">Simple Ingredients.<br>Naturally Functional.</p>
+        <p>Craft co-packing in the heart of Wisconsin — built for brands that refuse to cut corners.</p>
+      </div>
+      <nav class="footer-col" aria-label="Company pages">
+        <h5>Company</h5>
+        <ul role="list">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="process.html">Our Process</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Services">
+        <h5>Services</h5>
+        <ul role="list">
+          <li><a href="services.html#canning">Beverage Canning</a></li>
+          <li><a href="services.html#shots">Functional Shots</a></li>
+          <li><a href="services.html#gummies">Gummy Manufacturing</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Policies">
+        <h5>Policies</h5>
+        <ul role="list">
+          <li><a href="return-policy.html">Return Policy</a></li>
+          <li><a href="shipping-policy.html">Shipping Policy</a></li>
+          <li><a href="fda-disclosure.html">FDA Disclosure</a></li>
+        </ul>
+        <h5 style="margin-top:var(--space-6);">Contact</h5>
+        <address class="footer-address">
+          300 De Lish Us Ave<br>Waupaca, WI 54981<br>
+          <a href="mailto:info@functionalinfusion.com">info@functionalinfusion.com</a>
+        </address>
+      </nav>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,0.08);">
+    <div class="container footer-bottom">
+      <p>&copy; <span id="copy-year"></span> Functional Infusion. All rights reserved.</p>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="return-policy.html">Returns</a>
+        <a href="shipping-policy.html">Shipping</a>
+        <a href="fda-disclosure.html">FDA Disclosure</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/security.js" defer></script>
+<script src="js/nav.js" defer></script>
+<script src="js/reveal.js" defer></script>
+<script>
+  document.getElementById('copy-year').textContent = new Date().getFullYear();
+  window.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.createIcons(); });
+</script>
 </body>
 </html>

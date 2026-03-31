@@ -1,0 +1,89 @@
+/* ============================================================
+   Functional Infusion — 404 Page Styles
+   ============================================================ */
+
+.page-404 {
+  min-height: 100vh;
+  background: var(--color-primary-xlight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ghost-404 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 30vw, 18rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  opacity: 0.3;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+  animation: pulse404 3s ease-in-out infinite;
+}
+
+@keyframes pulse404 {
+  0%, 100% { opacity: 0.28; }
+  50%       { opacity: 0.45; }
+}
+
+.error-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-8);
+  max-width: 480px;
+}
+
+.error-logo {
+  margin: 0 auto var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.error-logo img {
+  width: 80px;
+  height: auto;
+  opacity: 0.8;
+}
+
+.error-content h1 {
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+  margin-bottom: var(--space-4);
+  color: var(--color-charcoal);
+}
+
+.error-content p {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.65;
+  margin-bottom: var(--space-8);
+  max-width: none;
+}
+
+.error-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Decorative leaf SVG */
+.leaf-decoration {
+  display: block;
+  margin: var(--space-8) auto 0;
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary);
+  opacity: 0.45;
+}
+
+@media (max-width: 480px) {
+  .error-actions { flex-direction: column; align-items: center; }
+}

@@ -30,15 +30,15 @@
   Header always set Strict-Transport-Security \
     "max-age=31536000; includeSubDomains; preload"
 
-  # Content-Security-Policy (tighten in production after testing)
+  # Content-Security-Policy — updated for Google Fonts + Lucide CDN
   Header always set Content-Security-Policy \
     "default-src 'self'; \
-     script-src 'self'; \
-     style-src 'self' 'unsafe-inline'; \
+     script-src 'self' https://unpkg.com; \
+     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+     font-src 'self' https://fonts.gstatic.com; \
      img-src 'self' data:; \
-     font-src 'self'; \
      connect-src 'self'; \
-     frame-src https://www.indeed.com https://maps.google.com; \
+     frame-src 'none'; \
      base-uri 'self'; \
      form-action 'self'; \
      upgrade-insecure-requests; \
