@@ -1,0 +1,61 @@
+{
+  "name": "FunctionalInfusion Website",
+  "version": "1.0.0",
+  "stage": "wireframe",
+  "branch": "claude/website-wireframes-ti0Zm",
+  "buildDate": "2026-03-31",
+  "description": "Initial wireframe — all pages, security, SEO, and config scaffolded. Pending: brand colors from marketing guidelines, real copy, actual address/phone, Indeed employer slug, backend API endpoints, and server-side validation.",
+  "pages": [
+    { "id": "home",     "file": "index.html",    "status": "wireframe" },
+    { "id": "about",    "file": "about.html",     "status": "wireframe" },
+    { "id": "services", "file": "services.html",  "status": "wireframe" },
+    { "id": "contact",  "file": "contact.html",   "status": "wireframe" },
+    { "id": "careers",  "file": "careers.html",   "status": "wireframe" }
+  ],
+  "securityFeatures": [
+    "Content-Security-Policy (meta tags + .htaccess)",
+    "X-Frame-Options: SAMEORIGIN",
+    "X-Content-Type-Options: nosniff",
+    "Referrer-Policy: strict-origin-when-cross-origin",
+    "Permissions-Policy: restrictive",
+    "Client-side input sanitization (security.js)",
+    "Prompt injection detection",
+    "Null-byte / path traversal prevention",
+    "Client-side rate limiting (3 submissions/minute)",
+    "CSRF token generation and injection",
+    "ARIA-based form validation",
+    "No eval(), no innerHTML with user input",
+    "External link rel=noopener noreferrer",
+    "CSP violation reporter stub",
+    "Token budget enforcement for AI API calls"
+  ],
+  "seoFeatures": [
+    "Semantic HTML5",
+    "Schema.org JSON-LD structured data (Organization, WebSite, BreadcrumbList, FAQPage, ContactPage, MedicalWebPage)",
+    "Open Graph tags",
+    "Twitter Card tags",
+    "Canonical URLs",
+    "robots.txt",
+    "sitemap.xml",
+    "Meta descriptions on all pages",
+    "Skip-to-content accessibility link",
+    "ARIA labels and roles throughout"
+  ],
+  "todoBeforeLaunch": [
+    "Apply brand colors and fonts from SharePoint marketing guidelines",
+    "Replace all [WIREFRAME: ...] placeholder content with real copy",
+    "Update address, phone number, email",
+    "Obtain and insert Indeed employer company slug",
+    "Build and connect backend API for contact form (/api/contact)",
+    "Implement server-side input validation and sanitization",
+    "Implement server-side rate limiting and CSRF verification",
+    "Add real team photos and clinic imagery",
+    "Set up Google Analytics / privacy-respecting analytics",
+    "Submit sitemap.xml to Google Search Console and Bing",
+    "Configure SSL/TLS certificate on hosting server",
+    "Test on all target browsers and devices",
+    "Run Lighthouse audit and address any gaps",
+    "Add privacy.html, terms.html, hipaa.html pages",
+    "Add favicon and apple-touch-icon assets"
+  ]
+}

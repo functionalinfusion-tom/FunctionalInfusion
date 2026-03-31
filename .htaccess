@@ -1,0 +1,177 @@
+# ============================================================
+# FunctionalInfusion — Apache Security & Performance Config
+# Version: 1.0.0
+#
+# Requirements: Apache 2.4+ with mod_headers, mod_rewrite,
+#   mod_deflate, mod_expires enabled.
+# ============================================================
+
+# ── Force HTTPS ──────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect HTTP → HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Redirect www → non-www (or reverse — pick one)
+  # RewriteCond %{HTTP_HOST} ^www\.functionalinfusion\.com [NC]
+  # RewriteRule ^ https://functionalinfusion.com%{REQUEST_URI} [L,R=301]
+
+  # Remove trailing slash for cleanliness (optional)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+</IfModule>
+
+# ── Security Headers ─────────────────────────────────────────
+<IfModule mod_headers.c>
+
+  # Strict-Transport-Security: enforce HTTPS for 1 year, include subdomains
+  Header always set Strict-Transport-Security \
+    "max-age=31536000; includeSubDomains; preload"
+
+  # Content-Security-Policy (tighten in production after testing)
+  Header always set Content-Security-Policy \
+    "default-src 'self'; \
+     script-src 'self'; \
+     style-src 'self' 'unsafe-inline'; \
+     img-src 'self' data:; \
+     font-src 'self'; \
+     connect-src 'self'; \
+     frame-src https://www.indeed.com https://maps.google.com; \
+     base-uri 'self'; \
+     form-action 'self'; \
+     upgrade-insecure-requests; \
+     report-uri /api/csp-report;"
+
+  # Prevent clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Prevent MIME-type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Control referrer information
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Restrict browser features
+  Header always set Permissions-Policy \
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=()"
+
+  # Cross-Origin isolation
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Embedder-Policy "require-corp"
+
+  # Remove server version info (defense in depth)
+  Header always unset X-Powered-By
+  Header always unset Server
+
+  # Cache-Control defaults
+  Header always set Cache-Control "no-store, no-cache, must-revalidate" env=NO_CACHE
+
+</IfModule>
+
+# ── Hide Server Signature ────────────────────────────────────
+ServerSignature Off
+
+# ── Directory Listing ────────────────────────────────────────
+Options -Indexes -FollowSymLinks
+
+# ── Deny Access to Sensitive Files ───────────────────────────
+<FilesMatch "(^\.htaccess|^\.htpasswd|^\.env|^version\.json|composer\.json|package\.json|package-lock\.json)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Block access to hidden files/directories (dot files)
+<IfModule mod_rewrite.c>
+  RewriteRule ^(.*/)?\.(?!well-known/) - [F,L]
+</IfModule>
+
+# ── Limit HTTP Methods ────────────────────────────────────────
+<LimitExcept GET POST HEAD OPTIONS>
+  Order allow,deny
+  Deny from all
+</LimitExcept>
+
+# ── File Type Restrictions ────────────────────────────────────
+# Block execution of PHP, CGI, etc. in upload directories
+<Directory "/uploads">
+  Options -ExecCGI
+  AddHandler cgi-script .php .php3 .php4 .php5 .phtml .pl .py .jsp .asp .sh .cgi
+  Options -Indexes
+</Directory>
+
+# ── Compression ───────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE application/xml
+</IfModule>
+
+# ── Browser Caching ───────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/gif             "access plus 1 month"
+  ExpiresByType image/jpeg            "access plus 1 month"
+  ExpiresByType image/png             "access plus 1 month"
+  ExpiresByType image/webp            "access plus 1 month"
+  ExpiresByType image/svg+xml         "access plus 1 month"
+  ExpiresByType image/x-icon          "access plus 1 year"
+
+  # CSS / JS (use versioned filenames for cache-busting in production)
+  ExpiresByType text/css              "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+
+  # HTML — short cache for freshness
+  ExpiresByType text/html             "access plus 1 hour"
+
+  # Fonts
+  ExpiresByType font/woff2            "access plus 1 year"
+  ExpiresByType font/woff             "access plus 1 year"
+</IfModule>
+
+# ── Rate Limiting (requires mod_evasive) ──────────────────────
+# Uncomment and tune after installing mod_evasive on your server:
+# <IfModule mod_evasive20.c>
+#   DOSHashTableSize    3097
+#   DOSPageCount        5
+#   DOSSiteCount        50
+#   DOSPageInterval     1
+#   DOSSiteInterval     1
+#   DOSBlockingPeriod   10
+#   DOSEmailNotify      security@functionalinfusion.com
+#   DOSLogDir           /var/log/mod_evasive
+# </IfModule>
+
+# ── Custom Error Pages ────────────────────────────────────────
+ErrorDocument 400 /errors/400.html
+ErrorDocument 403 /errors/403.html
+ErrorDocument 404 /errors/404.html
+ErrorDocument 500 /errors/500.html
+
+# ── Protect Against Common Exploits ──────────────────────────
+<IfModule mod_rewrite.c>
+  # Block null byte attacks
+  RewriteCond %{QUERY_STRING} (\%00|\%0A|\%0D) [NC,OR]
+  RewriteCond %{QUERY_STRING} (<|>|'|%3C|%3E|%27) [NC,OR]
+  # Block SQL injection attempts in query strings
+  RewriteCond %{QUERY_STRING} (union|select|insert|drop|update|delete|create|alter) [NC]
+  RewriteRule .* - [F,L]
+
+  # Block common exploit paths
+  RewriteRule ^(phpMyAdmin|phpmyadmin|pma|myadmin|mysql|wp-admin|wordpress) - [F,L]
+</IfModule>
+
+# ── Prevent Hotlinking of GIF/Images ─────────────────────────
+# Uncomment to enforce — update domain when live:
+# <IfModule mod_rewrite.c>
+#   RewriteCond %{HTTP_REFERER} !^$
+#   RewriteCond %{HTTP_REFERER} !^https?://(www\.)?functionalinfusion\.com [NC]
+#   RewriteRule \.(gif|jpg|jpeg|png|webp)$ - [F,NC,L]
+# </IfModule>

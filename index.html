@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ═══════════════════════════════════════════════════════
+       FunctionalInfusion — Home Page
+       Version: 1.0.0 | Branch: claude/website-wireframes-ti0Zm
+       ═══════════════════════════════════════════════════════ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security Headers (supplement with server-side headers in .htaccess) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' 'unsafe-inline';
+                 img-src 'self' data:;
+                 font-src 'self';
+                 connect-src 'self';
+                 frame-src https://www.indeed.com https://maps.google.com;
+                 base-uri 'self';
+                 form-action 'self';
+                 upgrade-insecure-requests;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+  <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+
+  <!-- Primary SEO -->
+  <title>FunctionalInfusion | Expert Infusion Therapy &amp; Wellness Services</title>
+  <meta name="description"
+        content="FunctionalInfusion delivers expert infusion therapy, IV nutrient services, and holistic wellness solutions. Personalized care designed around you.">
+  <meta name="keywords"
+        content="infusion therapy, IV therapy, wellness services, functional medicine, nutrient infusion">
+  <meta name="author" content="FunctionalInfusion">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://functionalinfusion.com/">
+
+  <!-- Open Graph (Social Sharing) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://functionalinfusion.com/">
+  <meta property="og:title"       content="FunctionalInfusion | Expert Infusion Therapy &amp; Wellness">
+  <meta property="og:description" content="Personalized infusion therapy and wellness services. Science-backed care delivered with compassion.">
+  <meta property="og:image"       content="https://functionalinfusion.com/assets/og-image.png">
+  <meta property="og:site_name"   content="FunctionalInfusion">
+  <meta property="og:locale"      content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="FunctionalInfusion | Expert Infusion Therapy">
+  <meta name="twitter:description" content="Personalized infusion therapy and wellness services.">
+  <meta name="twitter:image"       content="https://functionalinfusion.com/assets/og-image.png">
+
+  <!-- Structured Data — Organization (AI + SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "FunctionalInfusion",
+    "url": "https://functionalinfusion.com",
+    "logo": "https://functionalinfusion.com/fulllogo_animated.gif",
+    "description": "Expert infusion therapy and functional wellness services, personalized for every patient.",
+    "medicalSpecialty": ["InfusionTherapy", "FunctionalMedicine"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "info@functionalinfusion.com",
+      "availableLanguage": "English"
+    },
+    "sameAs": []
+  }
+  </script>
+
+  <!-- Structured Data — WebSite (enables Sitelinks Search Box for AI) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "FunctionalInfusion",
+    "url": "https://functionalinfusion.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://functionalinfusion.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://functionalinfusion.com/" }
+    ]
+  }
+  </script>
+
+  <!-- Preloads for performance -->
+  <link rel="preload" href="css/styles.css" as="style">
+  <link rel="preload" href="js/security.js" as="script">
+  <link rel="preload" href="js/main.js" as="script">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+
+<body>
+
+  <!-- Accessibility: Skip to main content -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Announcement Bar -->
+  <div class="notice-bar" role="banner" aria-label="Announcement">
+    Now accepting new patients &mdash;
+    <a href="contact.html">Schedule a consultation today &rarr;</a>
+  </div>
+
+  <!-- ═══ Navigation ══════════════════════════════════════ -->
+  <header>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+
+        <!-- Logo -->
+        <a class="nav-logo" href="index.html" aria-label="FunctionalInfusion — Home">
+          <img src="fulllogo_animated.gif"
+               alt="FunctionalInfusion logo"
+               width="120" height="48"
+               loading="eager">
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="index.html"    aria-current="page">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- CTA -->
+        <a class="btn btn-primary btn-sm nav-cta" href="contact.html">
+          Book Consultation
+        </a>
+
+        <!-- Hamburger (mobile) -->
+        <button class="nav-toggle"
+                id="nav-toggle"
+                aria-expanded="false"
+                aria-controls="nav-menu"
+                aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+    </nav>
+  </header>
+
+  <!-- ═══ Main Content ════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- ── Hero ─────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-inner">
+
+        <div class="hero-content">
+          <p class="hero-eyebrow">Trusted Infusion Therapy</p>
+          <h1 id="hero-heading">
+            Wellness Infused.<br>
+            <span style="color:var(--color-accent-lt);">Life Optimized.</span>
+          </h1>
+          <p class="lead">
+            FunctionalInfusion delivers personalized IV therapy and infusion
+            treatments backed by clinical science — so you can live better,
+            recover faster, and feel your best.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-white btn-lg" href="services.html">Explore Services</a>
+            <a class="btn btn-outline btn-lg"
+               style="color:white;border-color:rgba(255,255,255,0.5);"
+               href="contact.html">Book Consultation</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-logo-wrap">
+            <img src="fulllogo_animated.gif"
+                 alt="FunctionalInfusion animated logo"
+                 width="300" height="120"
+                 loading="eager">
+            <p style="color:rgba(255,255,255,0.6);font-size:0.75rem;margin-top:1rem;">
+              [WIREFRAME: hero illustration / brand visual]
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Stats Bar ─────────────────────────────────────── -->
+    <section class="stats-bar" aria-label="Company statistics">
+      <div class="container">
+        <div class="grid-4">
+          <div class="stat-card">
+            <span class="stat-number" data-count="5000" aria-label="5,000 patients served">0</span>
+            <span class="stat-label">Patients Served</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-count="20" aria-label="20 plus treatments offered">0</span>
+            <span class="stat-label">Treatments Offered</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-count="98" aria-label="98% satisfaction rate">0</span>
+            <span class="stat-label">% Satisfaction Rate</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-count="10" aria-label="10 plus years experience">0</span>
+            <span class="stat-label">Years of Experience</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Services Overview ─────────────────────────────── -->
+    <section class="section" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">What We Offer</span>
+          <h2 id="services-heading">Our Core Services</h2>
+          <p>Evidence-based infusion and wellness treatments tailored to
+             your unique health goals.</p>
+        </div>
+
+        <div class="grid-3">
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">💉</div>
+            <h3>IV Nutrient Therapy</h3>
+            <p>Replenish vitamins, minerals, and hydration directly into the
+               bloodstream for maximum absorption and rapid results.</p>
+            <a class="card-link" href="services.html#iv-therapy"
+               aria-label="Learn more about IV Nutrient Therapy">Learn more</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">🧬</div>
+            <h3>Functional Medicine Infusions</h3>
+            <p>Root-cause focused protocols combining lab-guided nutrient
+               infusions with holistic wellness planning.</p>
+            <a class="card-link" href="services.html#functional"
+               aria-label="Learn more about Functional Medicine Infusions">Learn more</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">⚡</div>
+            <h3>Energy &amp; Recovery</h3>
+            <p>Targeted infusions for athletes and high-performers: faster
+               recovery, improved energy, and peak physical output.</p>
+            <a class="card-link" href="services.html#recovery"
+               aria-label="Learn more about Energy and Recovery">Learn more</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">🛡️</div>
+            <h3>Immune Support</h3>
+            <p>High-dose vitamin C, zinc, and immune-boosting protocols
+               to keep you resilient through every season.</p>
+            <a class="card-link" href="services.html#immune"
+               aria-label="Learn more about Immune Support">Learn more</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">🌿</div>
+            <h3>Detox &amp; Rejuvenation</h3>
+            <p>Glutathione, NAD+, and antioxidant-rich infusions to clear
+               cellular waste and restore vitality from the inside out.</p>
+            <a class="card-link" href="services.html#detox"
+               aria-label="Learn more about Detox and Rejuvenation">Learn more</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">📋</div>
+            <h3>Concierge &amp; Corporate</h3>
+            <p>On-site and mobile infusion services for businesses, events,
+               and VIP clients — wellness delivered where you are.</p>
+            <a class="card-link" href="services.html#concierge"
+               aria-label="Learn more about Concierge and Corporate services">Learn more</a>
+          </article>
+
+        </div>
+
+        <div style="text-align:center;margin-top:3rem;">
+          <a class="btn btn-primary btn-lg" href="services.html">View All Services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About Preview ─────────────────────────────────── -->
+    <section class="section section--alt" aria-labelledby="about-preview-heading">
+      <div class="container">
+        <div class="grid-2" style="align-items:center;gap:4rem;">
+
+          <!-- Image placeholder -->
+          <div aria-hidden="true"
+               style="background:var(--color-placeholder);
+                      border-radius:var(--radius-lg);
+                      height:400px;
+                      border:2px dashed var(--color-border);
+                      display:flex;flex-direction:column;
+                      align-items:center;justify-content:center;
+                      gap:1rem;color:var(--color-wire-label);
+                      font-size:0.875rem;">
+            <span style="font-size:3rem;">📸</span>
+            <p>[WIREFRAME: Team / clinic photo]</p>
+          </div>
+
+          <div>
+            <span class="eyebrow"
+                  style="display:inline-block;font-size:0.875rem;
+                         font-weight:600;letter-spacing:0.1em;
+                         text-transform:uppercase;color:var(--color-accent);
+                         margin-bottom:1rem;">
+              About FunctionalInfusion
+            </span>
+            <h2 id="about-preview-heading">
+              Science Meets Compassionate Care
+            </h2>
+            <p class="lead" style="margin-block:1.5rem 2rem;">
+              We believe wellness is not one-size-fits-all. Our board-certified
+              clinicians combine evidence-based infusion protocols with a deep
+              commitment to understanding each patient's unique needs.
+            </p>
+            <ul style="display:flex;flex-direction:column;gap:0.75rem;
+                       margin-bottom:2rem;">
+              <li style="display:flex;align-items:center;gap:0.75rem;
+                         font-size:0.9375rem;">
+                <span style="color:var(--color-secondary);font-size:1.1rem;">✓</span>
+                Board-certified medical professionals
+              </li>
+              <li style="display:flex;align-items:center;gap:0.75rem;
+                         font-size:0.9375rem;">
+                <span style="color:var(--color-secondary);font-size:1.1rem;">✓</span>
+                Personalized treatment protocols
+              </li>
+              <li style="display:flex;align-items:center;gap:0.75rem;
+                         font-size:0.9375rem;">
+                <span style="color:var(--color-secondary);font-size:1.1rem;">✓</span>
+                State-licensed and fully accredited
+              </li>
+              <li style="display:flex;align-items:center;gap:0.75rem;
+                         font-size:0.9375rem;">
+                <span style="color:var(--color-secondary);font-size:1.1rem;">✓</span>
+                Patient privacy and data security first
+              </li>
+            </ul>
+            <a class="btn btn-primary" href="about.html">Meet Our Team</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Testimonials ───────────────────────────────────── -->
+    <section class="section" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Patient Stories</span>
+          <h2 id="testimonials-heading">What Our Patients Say</h2>
+        </div>
+
+        <div class="grid-3">
+
+          <article class="testimonial-card">
+            <div class="stars" aria-label="5 stars">★★★★★</div>
+            <blockquote>
+              "After just three sessions, my energy levels completely
+              transformed. The team is professional, attentive, and truly
+              passionate about getting results."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="avatar" aria-hidden="true">👤</div>
+              <div>
+                <strong>Sarah M.</strong>
+                <span>IV Nutrient Therapy Patient</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="stars" aria-label="5 stars">★★★★★</div>
+            <blockquote>
+              "As an athlete, recovery time is everything. FunctionalInfusion's
+              recovery protocols cut my downtime in half. Game-changer."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="avatar" aria-hidden="true">👤</div>
+              <div>
+                <strong>James K.</strong>
+                <span>Energy &amp; Recovery Patient</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="stars" aria-label="5 stars">★★★★★</div>
+            <blockquote>
+              "The staff made me feel completely at ease. The facility is
+              immaculate, and the results speak for themselves. I refer
+              everyone I know."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="avatar" aria-hidden="true">👤</div>
+              <div>
+                <strong>Maria L.</strong>
+                <span>Immune Support Patient</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA Banner ─────────────────────────────────────── -->
+    <section class="cta-banner" aria-labelledby="cta-heading">
+      <div class="container">
+        <h2 id="cta-heading">Ready to Start Your Wellness Journey?</h2>
+        <p>
+          Schedule a free consultation and let our clinicians design a
+          personalized infusion protocol just for you.
+        </p>
+        <div class="btn-group">
+          <a class="btn btn-white btn-lg" href="contact.html">Book a Consultation</a>
+          <a class="btn btn-outline btn-lg"
+             style="color:white;border-color:rgba(255,255,255,0.5);"
+             href="services.html">View Services</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ Footer ══════════════════════════════════════════ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <img src="fulllogo_animated.gif" alt="FunctionalInfusion" height="40" loading="lazy">
+          <p>
+            Personalized infusion therapy and functional wellness — science-backed,
+            compassion-driven.
+          </p>
+          <p style="margin-top:1rem;" class="security-badge">
+            <span aria-hidden="true">🔒</span>
+            Secured &amp; HIPAA-conscious
+          </p>
+        </div>
+
+        <!-- Pages -->
+        <nav class="footer-col" aria-label="Site pages">
+          <h5>Pages</h5>
+          <ul role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+
+        <!-- Services -->
+        <nav class="footer-col" aria-label="Our services">
+          <h5>Services</h5>
+          <ul role="list">
+            <li><a href="services.html#iv-therapy">IV Nutrient Therapy</a></li>
+            <li><a href="services.html#functional">Functional Medicine</a></li>
+            <li><a href="services.html#recovery">Energy &amp; Recovery</a></li>
+            <li><a href="services.html#immune">Immune Support</a></li>
+            <li><a href="services.html#detox">Detox &amp; Rejuvenation</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contact -->
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul role="list" style="gap:0.75rem;">
+            <li style="font-size:0.875rem;color:rgba(255,255,255,0.6);">
+              📍 [Address — update from marketing guide]
+            </li>
+            <li>
+              <a href="tel:+10000000000">📞 (000) 000-0000</a>
+            </li>
+            <li>
+              <a href="mailto:info@functionalinfusion.com">
+                ✉ info@functionalinfusion.com
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div style="border-top:1px solid rgba(255,255,255,0.1);">
+      <div class="container footer-bottom">
+        <p>&copy; <span id="year"></span> FunctionalInfusion. All rights reserved.</p>
+        <nav class="footer-legal" aria-label="Legal pages">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="hipaa.html">HIPAA Notice</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Version info (hidden, for debugging) -->
+  <meta name="app-version" content="1.0.0">
+
+  <!-- Scripts — deferred, self-hosted only (no CDN) -->
+  <script src="js/security.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <!-- Current year for copyright -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

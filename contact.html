@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';
+                 img-src 'self' data:; font-src 'self'; connect-src 'self';
+                 frame-src https://maps.google.com; base-uri 'self'; form-action 'self';
+                 upgrade-insecure-requests;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
+  <title>Contact Us | FunctionalInfusion</title>
+  <meta name="description"
+        content="Contact FunctionalInfusion to schedule a consultation, ask about services, or connect with our care team. We respond within 1 business day.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://functionalinfusion.com/contact.html">
+
+  <meta property="og:title"       content="Contact FunctionalInfusion">
+  <meta property="og:description" content="Get in touch with our care team. We're here to answer your questions and schedule your consultation.">
+  <meta property="og:url"         content="https://functionalinfusion.com/contact.html">
+  <meta property="og:type"        content="website">
+
+  <!-- Structured Data — ContactPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact FunctionalInfusion",
+    "url": "https://functionalinfusion.com/contact.html",
+    "description": "Contact form and information for FunctionalInfusion.",
+    "isPartOf": { "@type": "WebSite", "url": "https://functionalinfusion.com" },
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "FunctionalInfusion",
+      "telephone": "[UPDATE-PHONE]",
+      "email": "info@functionalinfusion.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "availableLanguage": "English"
+      }
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://functionalinfusion.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Contact Us", "item": "https://functionalinfusion.com/contact.html" }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ═══ Navigation ══════════════════════════════════════ -->
+  <header>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="index.html" aria-label="FunctionalInfusion — Home">
+          <img src="fulllogo_animated.gif" alt="FunctionalInfusion logo"
+               width="120" height="48" loading="eager">
+        </a>
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+        <a class="btn btn-primary btn-sm nav-cta" href="contact.html">Book Consultation</a>
+        <button class="nav-toggle" id="nav-toggle"
+                aria-expanded="false" aria-controls="nav-menu"
+                aria-label="Open navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ═══ Main ════════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- ── Page Hero ────────────────────────────────────── -->
+    <section class="page-hero" aria-labelledby="contact-hero-heading">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <span aria-current="page">Contact Us</span>
+        </nav>
+        <h1 id="contact-hero-heading">Contact Us</h1>
+        <p class="lead">
+          Questions, consultations, or just want to learn more?
+          Our team responds within 1 business day.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Contact Layout ────────────────────────────────── -->
+    <section class="section" aria-labelledby="contact-form-heading">
+      <div class="container">
+        <div class="grid-2" style="gap:3rem;align-items:start;">
+
+          <!-- Contact Form -->
+          <div>
+            <h2 id="contact-form-heading" style="margin-bottom:0.5rem;">
+              Send Us a Message
+            </h2>
+            <p style="color:var(--color-text-muted);margin-bottom:2rem;">
+              Fill out the form below and we'll be in touch shortly.
+              Fields marked <span style="color:#E53E3E;" aria-label="required">*</span>
+              are required.
+            </p>
+
+            <!-- Success / Error Alerts (populated by JS, never innerHTML) -->
+            <div id="form-success"
+                 class="alert alert-success"
+                 role="alert"
+                 aria-live="polite"
+                 hidden>
+            </div>
+            <div id="form-error"
+                 class="alert alert-error"
+                 role="alert"
+                 aria-live="assertive"
+                 hidden>
+            </div>
+
+            <form id="contact-form"
+                  class="form-card"
+                  novalidate
+                  autocomplete="on"
+                  aria-label="Contact form">
+
+              <!-- Hidden CSRF token injected by security.js -->
+
+              <div class="grid-2" style="gap:1.5rem;">
+                <!-- First Name -->
+                <div class="form-group">
+                  <label for="first-name">
+                    First Name <span class="required" aria-hidden="true">*</span>
+                  </label>
+                  <input type="text"
+                         id="first-name"
+                         name="first_name"
+                         class="form-control"
+                         autocomplete="given-name"
+                         required
+                         maxlength="100"
+                         aria-required="true"
+                         aria-describedby="first-name-error"
+                         placeholder="Jane">
+                  <span id="first-name-error" class="form-error" role="alert"></span>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group">
+                  <label for="last-name">
+                    Last Name <span class="required" aria-hidden="true">*</span>
+                  </label>
+                  <input type="text"
+                         id="last-name"
+                         name="last_name"
+                         class="form-control"
+                         autocomplete="family-name"
+                         required
+                         maxlength="100"
+                         aria-required="true"
+                         aria-describedby="last-name-error"
+                         placeholder="Smith">
+                  <span id="last-name-error" class="form-error" role="alert"></span>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="email">
+                  Email Address <span class="required" aria-hidden="true">*</span>
+                </label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       class="form-control"
+                       autocomplete="email"
+                       required
+                       maxlength="254"
+                       aria-required="true"
+                       aria-describedby="email-error"
+                       placeholder="jane@example.com">
+                <span id="email-error" class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Phone (optional) -->
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel"
+                       id="phone"
+                       name="phone"
+                       class="form-control"
+                       autocomplete="tel"
+                       maxlength="20"
+                       aria-describedby="phone-error"
+                       placeholder="(555) 123-4567">
+                <span id="phone-error" class="form-error" role="alert"></span>
+              </div>
+
+              <!-- Service Interest -->
+              <div class="form-group">
+                <label for="service">Service of Interest</label>
+                <select id="service" name="service" class="form-control">
+                  <option value="">— Select a service —</option>
+                  <option value="iv-therapy">IV Nutrient Therapy</option>
+                  <option value="functional">Functional Medicine Infusions</option>
+                  <option value="recovery">Energy &amp; Recovery</option>
+                  <option value="immune">Immune Support</option>
+                  <option value="detox">Detox &amp; Rejuvenation</option>
+                  <option value="concierge">Concierge &amp; Corporate</option>
+                  <option value="other">Other / Not Sure Yet</option>
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div class="form-group">
+                <label for="message">
+                  Message <span class="required" aria-hidden="true">*</span>
+                </label>
+                <textarea id="message"
+                          name="message"
+                          class="form-control"
+                          required
+                          maxlength="4096"
+                          data-type="message"
+                          aria-required="true"
+                          aria-describedby="message-error"
+                          placeholder="Tell us about your health goals or questions…"></textarea>
+                <span id="message-error" class="form-error" role="alert"></span>
+              </div>
+
+              <!-- How did you hear about us? -->
+              <div class="form-group">
+                <label for="referral">How did you hear about us?</label>
+                <select id="referral" name="referral" class="form-control">
+                  <option value="">— Select —</option>
+                  <option value="google">Google Search</option>
+                  <option value="social">Social Media</option>
+                  <option value="friend">Friend / Family Referral</option>
+                  <option value="doctor">Doctor Referral</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Consent -->
+              <div class="form-group" style="display:flex;align-items:flex-start;gap:0.75rem;">
+                <input type="checkbox"
+                       id="consent"
+                       name="consent"
+                       required
+                       aria-required="true"
+                       style="margin-top:0.2rem;flex-shrink:0;width:auto;"
+                       aria-describedby="consent-error">
+                <label for="consent" style="font-size:0.875rem;font-weight:400;cursor:pointer;">
+                  I consent to FunctionalInfusion contacting me regarding my
+                  inquiry. I have read and agree to the
+                  <a href="privacy.html" style="color:var(--color-accent);">Privacy Policy</a>.
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+              </div>
+              <span id="consent-error" class="form-error" role="alert"></span>
+
+              <button type="submit" class="btn btn-primary btn-lg"
+                      style="width:100%;justify-content:center;margin-top:0.5rem;">
+                Send Message
+              </button>
+
+              <p class="rate-notice">
+                🔒 Your information is encrypted and never sold.
+                Submissions are limited to protect against abuse.
+              </p>
+
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <aside aria-label="Contact information">
+            <h2 style="margin-bottom:2rem;">Get in Touch</h2>
+
+            <div class="contact-info">
+
+              <div class="contact-item">
+                <div class="contact-item-icon" aria-hidden="true">📍</div>
+                <div class="contact-item-body">
+                  <h4>Our Location</h4>
+                  <p>[WIREFRAME: Full address — update from marketing guidelines]</p>
+                  <p>City, State  ZIP</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-item-icon" aria-hidden="true">📞</div>
+                <div class="contact-item-body">
+                  <h4>Phone</h4>
+                  <a href="tel:+10000000000">(000) 000-0000</a>
+                  <p>Mon–Fri, 8am–6pm</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-item-icon" aria-hidden="true">✉️</div>
+                <div class="contact-item-body">
+                  <h4>Email</h4>
+                  <a href="mailto:info@functionalinfusion.com">
+                    info@functionalinfusion.com
+                  </a>
+                  <p>We respond within 1 business day</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-item-icon" aria-hidden="true">🕐</div>
+                <div class="contact-item-body">
+                  <h4>Office Hours</h4>
+                  <p>Monday – Friday: 8:00 AM – 6:00 PM</p>
+                  <p>Saturday: 9:00 AM – 2:00 PM</p>
+                  <p>Sunday: Closed</p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="map-placeholder" role="img" aria-label="Map location placeholder">
+              <span aria-hidden="true">🗺️</span>
+              <p>[WIREFRAME: Embed Google Maps here]</p>
+              <p style="font-size:0.75rem;">
+                Update CSP frame-src with verified Maps embed URL
+              </p>
+            </div>
+
+            <!-- Emergency Notice -->
+            <div class="alert alert-error" style="margin-top:1.5rem;display:flex;">
+              <span aria-hidden="true">⚠️</span>
+              <span>
+                <strong>Medical Emergency?</strong>
+                Call 911 immediately. Our services are wellness-focused
+                and not a substitute for emergency care.
+              </span>
+            </div>
+
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ Footer ══════════════════════════════════════════ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="fulllogo_animated.gif" alt="FunctionalInfusion" height="40" loading="lazy">
+          <p>Personalized infusion therapy and functional wellness — science-backed, compassion-driven.</p>
+          <p style="margin-top:1rem;" class="security-badge">
+            <span aria-hidden="true">🔒</span> Secured &amp; HIPAA-conscious
+          </p>
+        </div>
+        <nav class="footer-col" aria-label="Site pages">
+          <h5>Pages</h5>
+          <ul role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Our services">
+          <h5>Services</h5>
+          <ul role="list">
+            <li><a href="services.html#iv-therapy">IV Nutrient Therapy</a></li>
+            <li><a href="services.html#functional">Functional Medicine</a></li>
+            <li><a href="services.html#recovery">Energy &amp; Recovery</a></li>
+            <li><a href="services.html#immune">Immune Support</a></li>
+            <li><a href="services.html#detox">Detox &amp; Rejuvenation</a></li>
+          </ul>
+        </nav>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul role="list">
+            <li style="font-size:0.875rem;color:rgba(255,255,255,0.6);">📍 [Address]</li>
+            <li><a href="tel:+10000000000">📞 (000) 000-0000</a></li>
+            <li><a href="mailto:info@functionalinfusion.com">✉ info@functionalinfusion.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1);">
+      <div class="container footer-bottom">
+        <p>&copy; <span id="year"></span> FunctionalInfusion. All rights reserved.</p>
+        <nav class="footer-legal" aria-label="Legal pages">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="hipaa.html">HIPAA Notice</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/security.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

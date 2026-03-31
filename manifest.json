@@ -1,0 +1,25 @@
+{
+  "name": "FunctionalInfusion",
+  "short_name": "FunctionalInfusion",
+  "description": "Personalized infusion therapy and functional wellness services.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1B4F72",
+  "theme_color": "#2E86C1",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "medical", "wellness"]
+}
