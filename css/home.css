@@ -1,0 +1,237 @@
+/* ============================================================
+   Functional Infusion — Home Page Styles
+   ============================================================ */
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary-xlight);
+  /* Production: replace with background-image: url('../assets/hero-botanical.jpg') */
+  background-image:
+    radial-gradient(ellipse at 70% 60%, rgba(150, 201, 168, 0.35) 0%, transparent 65%),
+    radial-gradient(ellipse at 20% 30%, rgba(202, 228, 211, 0.4) 0%, transparent 55%);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-block: var(--space-32);
+  text-align: center;
+}
+
+.hero-logo-wrap {
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo-wrap img {
+  width: 180px;
+  height: auto;
+}
+
+.hero h1 {
+  font-size: clamp(var(--text-4xl), 7vw, var(--text-6xl));
+  color: var(--color-charcoal);
+  opacity: 0.9;
+  line-height: 1.1;
+  margin-bottom: var(--space-6);
+}
+
+.hero-sub {
+  font-size: var(--text-xl);
+  color: var(--color-charcoal);
+  opacity: 0.7;
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: var(--space-10);
+  line-height: 1.6;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Pillars (Why choose us) ───────────────────────────────── */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+/* ── Services Overview ─────────────────────────────────────── */
+.services-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.service-overview-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-primary-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  display: flex;
+  flex-direction: column;
+}
+
+.service-overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.service-overview-card h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.service-overview-card .price-teaser {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-xlight);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.service-overview-card .card-cta {
+  margin-top: auto;
+  padding-top: var(--space-5);
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  font-size: var(--text-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: gap var(--transition-fast), color var(--transition-fast);
+}
+
+.service-overview-card .card-cta:hover {
+  gap: var(--space-3);
+  color: var(--color-charcoal);
+}
+
+/* ── Facility Band ─────────────────────────────────────────── */
+.facility-band {
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  padding-block: var(--space-16);
+  border-left: 6px solid var(--color-primary);
+}
+
+.facility-band-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.facility-band h2 {
+  color: var(--color-white);
+  font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+  line-height: 1.15;
+}
+
+.facility-pills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Process Teaser ────────────────────────────────────────── */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: var(--color-primary-light);
+  border-top: 2px dashed var(--color-primary);
+}
+
+.process-step {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  position: relative;
+}
+
+.process-step-number {
+  width: 56px;
+  height: 56px;
+  background: var(--color-primary);
+  color: var(--color-charcoal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  margin: 0 auto var(--space-4);
+  position: relative;
+  z-index: 1;
+  border: 3px solid var(--color-primary-xlight);
+}
+
+.process-step h4 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-2);
+}
+
+.process-step p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 160px;
+  margin-inline: auto;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .pillars-grid         { grid-template-columns: 1fr; }
+  .services-overview-grid { grid-template-columns: 1fr; }
+  .process-steps        { grid-template-columns: repeat(2, 1fr); }
+  .process-steps::before { display: none; }
+  .facility-band-inner  { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: 70vh; }
+  .hero-inner { padding-block: var(--space-16); }
+  .hero-logo-wrap img { width: 140px; }
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .process-steps { grid-template-columns: 1fr; }
+}

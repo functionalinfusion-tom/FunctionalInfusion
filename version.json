@@ -1,0 +1,44 @@
+{
+  "name": "Functional Infusion Website",
+  "version": "2.1.0",
+  "stage": "build",
+  "branch": "claude/website-wireframes-ti0Zm",
+  "buildDate": "2026-04-01",
+  "description": "Full B2B website build for Functional Infusion co-packing facility in Waupaca, WI. Sage green design system, DM Serif Display + DM Sans fonts, Lucide icons, full pricing data, policy pages, and security/SEO throughout.",
+  "pages": [
+    { "id": "home",            "file": "index.html",           "status": "complete" },
+    { "id": "about",           "file": "about.html",           "status": "complete" },
+    { "id": "process",         "file": "process.html",         "status": "complete" },
+    { "id": "services",        "file": "services.html",        "status": "complete" },
+    { "id": "contact",         "file": "contact.html",         "status": "complete" },
+    { "id": "recall-policy",   "file": "recall-policy.html",   "status": "complete" },
+    { "id": "shipping-policy", "file": "shipping-policy.html", "status": "complete" },
+    { "id": "fda-disclosure",  "file": "fda-disclosure.html",  "status": "complete" },
+    { "id": "404",             "file": "404.html",             "status": "complete" }
+  ],
+  "designSystem": {
+    "colorPrimary":  "#96C9A8",
+    "colorCharcoal": "#1A1A1A",
+    "fontDisplay":   "DM Serif Display",
+    "fontBody":      "DM Sans",
+    "icons":         "Lucide (CDN)",
+    "cssArchitecture": ["variables.css", "global.css", "[page].css"]
+  },
+  "todoBeforeLaunch": [
+    "Replace photo-placeholder divs with real facility/product photography",
+    "Add real favicon and apple-touch-icon assets",
+    "Verify phone number (715) 256-7785 is active and forwarding correctly",
+    "Wire contact form to backend /api/quote endpoint with server-side validation",
+    "Add server-side CSRF token verification",
+    "Configure SSL/TLS certificate",
+    "Submit sitemap.xml to Google Search Console",
+    "Add Google Analytics / privacy-respecting analytics",
+    "Set up canonical domain redirect (www → non-www or vice versa)",
+    "Enable mod_evasive rate limiting on Apache server",
+    "Replace Lucide CDN with self-hosted build for maximum CSP control",
+    "Replace Google Fonts with self-hosted WOFF2 files for maximum CSP control",
+    "Run Lighthouse audit (target 95+ across all categories)",
+    "Test across Chrome, Safari, Firefox, iOS Safari, Android Chrome",
+    "Verify all anchor links (#canning, #shots, #gummies) scroll correctly"
+  ]
+}
