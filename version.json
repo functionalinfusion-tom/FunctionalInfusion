@@ -1,9 +1,9 @@
 {
   "name": "Functional Infusion Website",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "stage": "build",
   "branch": "claude/website-wireframes-ti0Zm",
-  "buildDate": "2026-03-31",
+  "buildDate": "2026-04-01",
   "description": "Full B2B website build for Functional Infusion co-packing facility in Waupaca, WI. Sage green design system, DM Serif Display + DM Sans fonts, Lucide icons, full pricing data, policy pages, and security/SEO throughout.",
   "pages": [
     { "id": "home",            "file": "index.html",           "status": "complete" },
@@ -11,7 +11,7 @@
     { "id": "process",         "file": "process.html",         "status": "complete" },
     { "id": "services",        "file": "services.html",        "status": "complete" },
     { "id": "contact",         "file": "contact.html",         "status": "complete" },
-    { "id": "return-policy",   "file": "return-policy.html",   "status": "complete" },
+    { "id": "recall-policy",   "file": "recall-policy.html",   "status": "complete" },
     { "id": "shipping-policy", "file": "shipping-policy.html", "status": "complete" },
     { "id": "fda-disclosure",  "file": "fda-disclosure.html",  "status": "complete" },
     { "id": "404",             "file": "404.html",             "status": "complete" }
@@ -27,7 +27,7 @@
   "todoBeforeLaunch": [
     "Replace photo-placeholder divs with real facility/product photography",
     "Add real favicon and apple-touch-icon assets",
-    "Set actual company phone number in nav/footer",
+    "Verify phone number (715) 256-7785 is active and forwarding correctly",
     "Wire contact form to backend /api/quote endpoint with server-side validation",
     "Add server-side CSRF token verification",
     "Configure SSL/TLS certificate",
