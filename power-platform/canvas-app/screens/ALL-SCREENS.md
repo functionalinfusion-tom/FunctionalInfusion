@@ -215,3 +215,34 @@ Patch(fi_recipeingredient,
 );
 Navigate(scnRecipeVersionDetail, UnCover)
 ```
+
+---
+
+## scnInventory
+
+### Sections
+
+**1. Low Stock Alerts**
+- `Filter(fi_inventorylot, fi_remainingqty / fi_receivedqty < 0.25)`
+
+**2. All Lots Gallery**
+- **Items:** fi_inventorylot sorted by fi_expirationdate ascending (FEFO)
+- **Each row:** ingredient name, supplier lot, internal lot, remaining qty, expiry, status badge
+
+**3. Recent Lot Usage**
+- **Items:** fi_batchingredientactual sorted by createdon descending
+- **Shows:** lot code → batch → customer → date
+
+### Forward Trace
+```powerapps
+// Given a selected lot, find which batches used it and which customers received those batches
+Filter(fi_batchingredientactual,
+    fi_inventorylotid.fi_inventorylotid = varSelectedLot.fi_inventorylotid)
+```
+
+### Backward Trace
+```powerapps
+// Given a selected batch, find which lots went into it and which vendors supplied those lots
+Filter(fi_batchingredientactual,
+    fi_batchrecordid.fi_batchrecordid = varSelectedBatch.fi_batchrecordid)
+```
