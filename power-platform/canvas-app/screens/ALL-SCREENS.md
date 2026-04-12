@@ -53,3 +53,55 @@
 ### New Batch Button
 - Fill=#96C9A8, Color=White, BorderRadius=12
 - OnSelect: `Navigate(scnNewBatch, Cover)`
+
+---
+
+## scnNewBatch
+
+### Form Fields (grouped white card)
+- **Customer dropdown:**
+  - Items=`Filter(fi_customer, fi_isactive=true)`
+  - OnChange: `UpdateContext({locCustomer: Self.Selected}); Reset(drpRecipe)`
+- **Recipe dropdown:**
+  - Items=`Filter(fi_recipemaster, fi_customerid.fi_customerid=locCustomer.fi_customerid And fi_isactive=true)`
+  - OnChange: `Set(varActiveVersion, LookUp(fi_recipeversion, fi_recipemasterid.fi_recipemasterid=Self.Selected.fi_recipemasterid And fi_status='Active')); ClearCollect(colBatchReceipt, ForAll(…))`
+- **Date picker:** DefaultDate=Today()
+- **Batch size input:** InputTextPlaceholder="e.g. 30", OnChange=`UpdateContext({locBatchSize: Value(Self.Text)})`
+- **Unit dropdown:** `["gal","BBL","unit","case","kg","lb"]`
+- **Crew Lead:** `["Matt Crane","Dana Howard","Wade Bullick","Kris Dahlstrom"]`
+- **Tank/Line:** `["Tank 1".."Tank 7","Canning Line A","Canning Line B","Gummy Line"]`
+
+### Ingredient Scan Gallery
+- Visible: `!IsBlank(varActiveVersion)`
+- **Items:** colBatchReceipt (built in recipe dropdown OnChange)
+- Row height: 72
+- **Scan button (camera icon):** OnSelect=`Set(varScanTargetIng, ThisItem); Navigate(scnScanLookup, Cover)`
+- **Lot badge:** Visible=`!IsBlank(ThisItem.LotCode)`, Text=ThisItem.LotCode, Fill=#eff6ff, Color=#2563eb
+- **Check icon:** Visible=`!IsBlank(ThisItem.LotCode)`
+- **Critical row:** Fill=`If(ThisItem.IsCritical, #fffbeb, White)`
+
+### Create Batch Button
+- OnSelect:
+```powerapps
+If(
+    IsBlank(drpRecipe.Selected) Or IsBlank(txtBatchSize.Text),
+    Notify("Select recipe and batch size first", NotificationType.Error),
+
+    Set(varNewBatch,
+        Patch(fi_batchrecord, Defaults(fi_batchrecord), {
+            fi_recipemasterid:  drpRecipe.Selected,
+            fi_recipeversionid: varActiveVersion,
+            fi_customerid:      drpCustomer.Selected,
+            fi_batchdate:       dtpDate.SelectedDate,
+            fi_batchsize:       Value(txtBatchSize.Text),
+            fi_batchunittype:   drpUnit.Selected.Value,
+            fi_crewlead:        drpCrew.Selected.Value,
+            fi_tankline:        drpTank.Selected.Value,
+            fi_status:          'fi_status (fi_batchrecord)'.Planned
+        })
+    );
+    // Flow generates lot code automatically via Dataverse trigger
+    Set(varSelectedBatch, varNewBatch);
+    Navigate(scnBatchDetail, Cover)
+)
+```
