@@ -307,3 +307,10 @@ ClearCollect(colBatchReceipt,
     )
 )
 ```
+
+## Scaled Quantity Label — Inline Format
+
+```powerapps
+// Use in a gallery label Text property to show scaled qty + unit
+Text(ThisItem.fi_qtyperbaseunit * varBatchSize, "[$-en-US]0.###") & " " & Text(ThisItem.fi_uom)
+```
