@@ -131,40 +131,35 @@ Switch(
 )
 ```
 
-## Submit for Approval — Button OnSelect
+## Submit for Approval — Button
 
 ```powerapps
-// Validate change reason is filled
+// Visible — only show for Draft versions when user is QA Lead
+varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Draft And varIsQALead
+
+// OnSelect
 If(
-    IsBlank(txtChangeReason.Value),
-    Notify("Change reason is required before submitting.", NotificationType.Warning),
+    IsBlank(txtChangeReason.Text),
+    Notify("Change reason is required before submitting.", NotificationType.Error),
 
-    // Update status
-    Patch(
-        fi_recipeversions,
-        varSelectedVersion,
-        {fi_status: 'fi_recipeversionstatus'.'Pending Approval'}
-    );
+    Patch(fi_recipeversion, varSelectedVersion,
+        {fi_status: 'fi_status (fi_recipeversion)'.'Pending Approval'});
 
-    // Write audit log
-    Patch(
-        fi_auditlogs,
-        Defaults(fi_auditlogs),
-        {
-            fi_name: "Submit-" & varSelectedVersion.fi_name & "-" & Text(Now(), "yyyy-mm-dd hh:mm"),
-            fi_entityname: "fi_recipeversion",
-            fi_recordid: Text(varSelectedVersion.fi_recipeversionid),
-            fi_action: 'fi_auditaction'.Submit,
-            fi_oldvalue: "Draft",
-            fi_newvalue: "Pending Approval",
-            fi_changedbyname: varCurrentUser.FullName,
-            fi_changedon: Now(),
-            fi_changereason: txtChangeReason.Value
-        }
-    );
+    Patch(fi_auditlog, Defaults(fi_auditlog), {
+        fi_name:          "Submit-" & varSelectedVersion.fi_name & "-" & Text(Now(),"[$-en-US]yyyymmddhhmmss"),
+        fi_entityname:    "fi_recipeversion",
+        fi_recordid:      Text(varSelectedVersion.fi_recipeversionid),
+        fi_recordname:    varSelectedVersion.fi_name,
+        fi_action:        'fi_action (fi_auditlog)'.'Submit for Approval',
+        fi_oldvalue:      "Draft",
+        fi_newvalue:      "Pending Approval",
+        fi_changedbyname: varCurrentUser.FullName,
+        fi_changedon:     Now(),
+        fi_changereason:  txtChangeReason.Text
+    });
 
     Notify("Submitted for approval.", NotificationType.Success);
-    Navigate(scnRecipeDetail, ScreenTransition.None)
+    Navigate(RecipeVersionList, ScreenTransition.Fade)
 )
 ```
 
