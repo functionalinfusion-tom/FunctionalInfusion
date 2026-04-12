@@ -236,3 +236,21 @@ CountRows(
     )
 )
 ```
+
+## Gallery — Recipe Master List
+
+```powerapps
+// Gallery Items — all active recipe masters sorted A-Z
+SortByColumns(
+    Filter(fi_recipemaster, fi_isactive = true),
+    "fi_name", SortOrder.Ascending
+)
+
+// Active version label per row (use in a label inside the gallery)
+LookUp(
+    fi_recipeversion,
+    fi_recipemasterid.fi_recipemasterid = ThisItem.fi_recipemasterid
+    And fi_status = 'fi_status (fi_recipeversion)'.Active,
+    fi_name
+)
+```
