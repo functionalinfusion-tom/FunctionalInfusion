@@ -1,0 +1,503 @@
+# ============================================================
+# Functional Infusion — Home Screen (scrHome)
+# Dashboard template with responsive header, stat cards,
+# content card with list items, and bottom navigation.
+# ============================================================
+
+- ScreenContainer1:
+    Control: GroupContainer@1.5.0
+    Variant: AutoLayout
+    Properties:
+      Fill: =RGBA(244, 244, 242, 1)
+      Height: =Parent.Height
+      LayoutAlignItems: =LayoutAlignItems.Stretch
+      LayoutDirection: =LayoutDirection.Vertical
+      LayoutGap: =0
+      PaddingBottom: =0
+      PaddingLeft: =0
+      PaddingRight: =0
+      PaddingTop: =0
+      Width: =Parent.Width
+    Children:
+
+      # ── HEADER ────────────────────────────────────────────
+      - HeaderContainer1:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =If(Parent.Width <= 768, 56, 72)
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =16
+            LayoutMinHeight: =56
+            LayoutMinWidth: =16
+            PaddingBottom: =0
+            PaddingLeft: =If(Parent.Width <= 768, 16, 24)
+            PaddingRight: =If(Parent.Width <= 768, 16, 24)
+            PaddingTop: =0
+            DropShadow: =DropShadow.Light
+          Children:
+
+            # Back button
+            - HeaderBackBtn:
+                Control: Image@2.2.3
+                Properties:
+                  Image: ="BackArrow"
+                  Width: =40
+                  Height: =40
+                  FillPortions: =0
+                  PaddingTop: =8
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+
+            # Page title
+            - HeaderTitle:
+                Control: Text@0.0.50
+                Properties:
+                  Text: ="Dashboard"
+                  Font: =Font.'Lato Black'
+                  Size: =If(Parent.Width <= 768, 16, 18)
+                  FontWeight: =FontWeight.Bold
+                  Color: =RGBA(26, 26, 26, 1)
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinWidth: =100
+
+            # Spacer pushes actions to the right
+            - HeaderSpacer:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutMinWidth: =1
+                  LayoutMinHeight: =1
+
+            # Action icon
+            - HeaderActionBtn:
+                Control: Image@2.2.3
+                Properties:
+                  Image: ="Settings"
+                  Width: =40
+                  Height: =40
+                  FillPortions: =0
+                  PaddingTop: =8
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+
+      # ── MAIN CONTENT ──────────────────────────────────────
+      - MainContainer1:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(244, 244, 242, 1)
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =If(Parent.Width <= 768, 16, 24)
+            LayoutMinHeight: =16
+            LayoutMinWidth: =16
+            PaddingBottom: =If(Parent.Width <= 768, 16, 24)
+            PaddingLeft: =If(Parent.Width <= 768, 16, 24)
+            PaddingRight: =If(Parent.Width <= 768, 16, 24)
+            PaddingTop: =If(Parent.Width <= 768, 16, 24)
+          Children:
+
+            # ── Stat Cards Row ──────────────────────────────
+            - StatCardsRow:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =0
+                  Height: =If(Parent.Width <= 768, 240, 110)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =If(Parent.Width <= 768, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                  LayoutGap: =16
+                  LayoutMinHeight: =100
+                  LayoutMinWidth: =16
+                Children:
+
+                  - StatCard1:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Start
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =16
+                        BorderRadius: =8
+                        DropShadow: =DropShadow.Light
+                      Children:
+                        - StatCard1Label:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="TOTAL ORDERS"
+                              Font: =Font.'Lato'
+                              Size: =10
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(107, 114, 128, 1)
+                              FillPortions: =0
+                              Height: =18
+                        - StatCard1Value:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="1,284"
+                              Font: =Font.'Lato Black'
+                              Size: =26
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(26, 26, 26, 1)
+                              FillPortions: =0
+                              Height: =36
+
+                  - StatCard2:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Start
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =16
+                        BorderRadius: =8
+                        DropShadow: =DropShadow.Light
+                      Children:
+                        - StatCard2Label:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="ACTIVE RUNS"
+                              Font: =Font.'Lato'
+                              Size: =10
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(107, 114, 128, 1)
+                              FillPortions: =0
+                              Height: =18
+                        - StatCard2Value:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="12"
+                              Font: =Font.'Lato Black'
+                              Size: =26
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(26, 26, 26, 1)
+                              FillPortions: =0
+                              Height: =36
+
+                  - StatCard3:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Start
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =16
+                        BorderRadius: =8
+                        DropShadow: =DropShadow.Light
+                      Children:
+                        - StatCard3Label:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="COMPLETION"
+                              Font: =Font.'Lato'
+                              Size: =10
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(107, 114, 128, 1)
+                              FillPortions: =0
+                              Height: =18
+                        - StatCard3Value:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="94%"
+                              Font: =Font.'Lato Black'
+                              Size: =26
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(22, 163, 74, 1)
+                              FillPortions: =0
+                              Height: =36
+
+            # ── Content Card ────────────────────────────────
+            - ContentCard1:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =0
+                  LayoutMinHeight: =200
+                  LayoutMinWidth: =16
+                  BorderRadius: =8
+                  DropShadow: =DropShadow.Light
+                Children:
+
+                  # Card header
+                  - ContentCard1Header:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =52
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =12
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =12
+                      Children:
+                        - ContentCard1Title:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="Recent Activity"
+                              Font: =Font.'Lato'
+                              Size: =14
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(26, 26, 26, 1)
+                              AlignInContainer: =AlignInContainer.Stretch
+                        - ContentCard1Action:
+                            Control: Text@0.0.50
+                            Properties:
+                              Text: ="View All"
+                              Font: =Font.'Lato'
+                              Size: =12
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(105, 140, 117, 1)
+                              FillPortions: =0
+                              Width: =80
+
+                  # Divider line
+                  - ContentCard1Divider:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(209, 213, 219, 1)
+                        FillPortions: =0
+                        Height: =1
+                        LayoutMinHeight: =1
+                        LayoutMinWidth: =1
+
+                  # Card body
+                  - ContentCard1Body:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =0
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =8
+                      Children:
+
+                        # List item row
+                        - ListItem1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =56
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              LayoutMinHeight: =48
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =20
+                              PaddingRight: =20
+                              PaddingTop: =8
+                            Children:
+                              # Icon badge
+                              - ListItem1Icon:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(237, 246, 240, 1)
+                                    FillPortions: =0
+                                    Width: =36
+                                    Height: =36
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =36
+                                    LayoutMinWidth: =36
+                                    BorderRadius: =8
+                              # Text body
+                              - ListItem1Body:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =2
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =100
+                                  Children:
+                                    - ListItem1Title:
+                                        Control: Text@0.0.50
+                                        Properties:
+                                          Text: ="Order #4821 completed"
+                                          Font: =Font.'Lato'
+                                          Size: =14
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =RGBA(26, 26, 26, 1)
+                                          FillPortions: =0
+                                          Height: =20
+                                    - ListItem1Subtitle:
+                                        Control: Text@0.0.50
+                                        Properties:
+                                          Text: ="Canning run — 2,400 units"
+                                          Font: =Font.'Lato'
+                                          Size: =12
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          FillPortions: =0
+                                          Height: =18
+                              # Timestamp
+                              - ListItem1Meta:
+                                  Control: Text@0.0.50
+                                  Properties:
+                                    Text: ="2h ago"
+                                    Font: =Font.'Lato'
+                                    Size: =12
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =0
+                                    Width: =60
+                                    AlignInContainer: =AlignInContainer.End
+
+      # ── FOOTER ────────────────────────────────────────────
+      - FooterContainer1:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =If(Parent.Width <= 768, 64, 72)
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =0
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceEvenly
+            LayoutMinHeight: =48
+            LayoutMinWidth: =16
+            PaddingBottom: =4
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =4
+            DropShadow: =DropShadow.Light
+          Children:
+
+            - FooterNav1:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =60
+                Children:
+                  - FooterNav1Icon:
+                      Control: Image@2.2.3
+                      Properties:
+                        Image: ="Home"
+                        Width: =24
+                        Height: =24
+                        FillPortions: =0
+                        Color: =RGBA(105, 140, 117, 1)
+                  - FooterNav1Label:
+                      Control: Text@0.0.50
+                      Properties:
+                        Text: ="Home"
+                        Font: =Font.'Lato'
+                        Size: =10
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(105, 140, 117, 1)
+                        FillPortions: =0
+                        Height: =16
+                        Align: =Align.Center
+
+            - FooterNav2:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =60
+                Children:
+                  - FooterNav2Icon:
+                      Control: Image@2.2.3
+                      Properties:
+                        Image: ="ClipboardList"
+                        Width: =24
+                        Height: =24
+                        FillPortions: =0
+                        Color: =RGBA(153, 153, 153, 1)
+                  - FooterNav2Label:
+                      Control: Text@0.0.50
+                      Properties:
+                        Text: ="Orders"
+                        Font: =Font.'Lato'
+                        Size: =10
+                        Color: =RGBA(153, 153, 153, 1)
+                        FillPortions: =0
+                        Height: =16
+                        Align: =Align.Center
+
+            - FooterNav3:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =60
+                Children:
+                  - FooterNav3Icon:
+                      Control: Image@2.2.3
+                      Properties:
+                        Image: ="Settings"
+                        Width: =24
+                        Height: =24
+                        FillPortions: =0
+                        Color: =RGBA(153, 153, 153, 1)
+                  - FooterNav3Label:
+                      Control: Text@0.0.50
+                      Properties:
+                        Text: ="Settings"
+                        Font: =Font.'Lato'
+                        Size: =10
+                        Color: =RGBA(153, 153, 153, 1)
+                        FillPortions: =0
+                        Height: =16
+                        Align: =Align.Center

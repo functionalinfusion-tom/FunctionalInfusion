@@ -1,0 +1,20 @@
+{
+  "name": "FI-CloneRecipeVersion",
+  "description": "Creates a new Draft recipe version cloning all ingredients from the Active version. Returns newRecipeVersionId to canvas app.",
+  "trigger": "PowerApps - returns newRecipeVersionId",
+  "inputs": {
+    "sourceRecipeVersionId": "GUID of Active version to clone",
+    "createdByName": "Full name of user",
+    "createdByEmail": "Email of user"
+  },
+  "steps": [
+    { "id": "1", "name": "Get source RecipeVersion", "type": "Dataverse - Get row by ID", "table": "fi_recipeversions", "rowId": "@{triggerBody()['sourceRecipeVersionId']}" },
+    { "id": "2", "name": "Get all RecipeIngredients", "type": "Dataverse - List rows", "table": "fi_recipeingredients", "filterQuery": "fi_recipeversionid eq '@{triggerBody()['sourceRecipeVersionId']}'", "orderBy": "fi_sortorder asc" },
+    { "id": "3", "name": "Get highest version number", "type": "Dataverse - List rows", "table": "fi_recipeversions", "filterQuery": "fi_recipemasterid eq '@{outputs('Get_source_RecipeVersion')?['body/_fi_recipemasterid_value']}'", "orderBy": "fi_versionnumber desc", "top": 1 },
+    { "id": "4", "name": "New version number", "type": "Compose", "inputs": "@{add(first(outputs('Get_highest_version')?['body/value'])?['fi_versionnumber'], 1)}" },
+    { "id": "5", "name": "Create new RecipeVersion Draft", "type": "Dataverse - Add new row", "table": "fi_recipeversions", "body": { "fi_name": "v@{outputs('New_version_number')}.0", "fi_recipemasterid@odata.bind": "/fi_recipemasters(@{outputs('Get_source_RecipeVersion')?['body/_fi_recipemasterid_value']})", "fi_versionnumber": "@{outputs('New_version_number')}", "fi_status": 10003000, "fi_changereason": "", "fi_createdbyname": "@{triggerBody()['createdByName']}" } },
+    { "id": "6", "name": "Clone each ingredient", "type": "Apply to each", "items": "@{outputs('Get_all_RecipeIngredients')?['body/value']}", "actions": [{ "name": "Create cloned ingredient", "type": "Dataverse - Add new row", "table": "fi_recipeingredients", "body": { "fi_name": "@{items('Apply_to_each')?['fi_name']}", "fi_recipeversionid@odata.bind": "/fi_recipeversions(@{outputs('Create_new_RecipeVersion')?['body/fi_recipeversionid']})", "fi_ingredientid@odata.bind": "/fi_ingredients(@{items('Apply_to_each')?['_fi_ingredientid_value']})", "fi_qtyperbaseunit": "@{items('Apply_to_each')?['fi_qtyperbaseunit']}", "fi_uom": "@{items('Apply_to_each')?['fi_uom']}", "fi_sortorder": "@{items('Apply_to_each')?['fi_sortorder']}", "fi_iscritical": "@{items('Apply_to_each')?['fi_iscritical']}", "fi_notes": "@{items('Apply_to_each')?['fi_notes']}" } }] },
+    { "id": "7", "name": "Write Clone audit log", "type": "Dataverse - Add new row", "table": "fi_auditlogs", "body": { "fi_name": "Clone-@{outputs('Create_new_RecipeVersion')?['body/fi_name']}-@{utcNow()}", "fi_entityname": "fi_recipeversion", "fi_recordid": "@{outputs('Create_new_RecipeVersion')?['body/fi_recipeversionid']}", "fi_action": 10004006, "fi_newvalue": "Draft", "fi_changedbyname": "@{triggerBody()['createdByName']}", "fi_changedon": "@{utcNow()}", "fi_changereason": "Cloned from @{outputs('Get_source_RecipeVersion')?['body/fi_name']}" } },
+    { "id": "8", "name": "Return to canvas app", "type": "PowerApps - Respond", "body": { "newRecipeVersionId": "@{outputs('Create_new_RecipeVersion')?['body/fi_recipeversionid']}", "newVersionLabel": "@{outputs('Create_new_RecipeVersion')?['body/fi_name']}" } }
+  ]
+}

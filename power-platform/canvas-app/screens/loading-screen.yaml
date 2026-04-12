@@ -1,0 +1,408 @@
+ComponentDefinitions:
+  cmpLoadingScreen:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      AccentColor:
+        PropertyKind: Input
+        DisplayName: Accent Color
+        Description: Accent color for logo, wordmark, divider, dots, ring, and version label.
+        DataType: Color
+        Default: =RGBA(150, 201, 168, 1)
+      AppName:
+        PropertyKind: Input
+        DisplayName: App Name
+        Description: First word of wordmark in default color.
+        DataType: Text
+        Default: ="Functional"
+      AppNameAccent:
+        PropertyKind: Input
+        DisplayName: App Name Accent
+        Description: Second word of wordmark in accent color. Leave blank for single-word app names.
+        DataType: Text
+        Default: ="Infusion"
+      AppSubtitle:
+        PropertyKind: Input
+        DisplayName: App Subtitle
+        Description: Small uppercase subtitle below wordmark.
+        DataType: Text
+        Default: ="Batch App"
+      AppVersion:
+        PropertyKind: Input
+        DisplayName: App Version
+        Description: Version string in the bottom badge.
+        DataType: Text
+        Default: ="v2.1"
+      CompanyName:
+        PropertyKind: Input
+        DisplayName: Company Name
+        Description: Company name text at the bottom.
+        DataType: Text
+        Default: ="Functional Infusion LLC"
+      CurrentStep:
+        PropertyKind: Input
+        DisplayName: Current Step
+        Description: 1-based active stage index (0 = not started).
+        DataType: Number
+        Default: =0
+      ErrorMessage:
+        PropertyKind: Input
+        DisplayName: ErrorMessage
+        Description: When non-blank, hides the progress bar and dots and shows this text in red.
+        DataType: Text
+        Default: =""
+      IsReady:
+        PropertyKind: Output
+        DisplayName: IsReady
+        Description: True once MinDisplayTime has elapsed.
+        DataType: Boolean
+      LoadingSteps:
+        PropertyKind: Input
+        DisplayName: Loading Steps
+        Description: Table of {msg:Text} rows — one per loading stage.
+        DataType: Table
+        Default: |-
+          =Table(
+            {msg: "Getting things ready…"   },
+            {msg: "Connecting to data…"      },
+            {msg: "Loading rate tables…"     },
+            {msg: "Preparing workspace…"     }
+          )
+      LogoLetter:
+        PropertyKind: Input
+        DisplayName: Logo Letter
+        Description: Single character inside the logo mark.
+        DataType: Text
+        Default: ="F"
+      MinDisplayTime:
+        PropertyKind: Input
+        DisplayName: MinDisplayTime
+        Description: Minimum milliseconds the screen stays visible before OnReady fires.
+        DataType: Number
+        Default: =1500
+      OnReady:
+        PropertyKind: Event
+        DisplayName: OnReady
+        Description: Fires once MinDisplayTime has elapsed. Wire to Set(gAppReady, true) to hide the loading screen.
+        ReturnType: None
+        Default: =
+      Theme:
+        PropertyKind: Input
+        DisplayName: Theme
+        Description: '"Dark" or "Light"'
+        DataType: Text
+        Default: ="Light"
+    Properties:
+      Height: =App.Height
+      IsReady: =tmrMinDisplay.Value >= tmrMinDisplay.Duration
+      Width: =App.Width
+    Children:
+
+      # ── Timers (invisible) ────────────────────────────────
+      - tmrMinDisplay:
+          Control: Timer@2.1.0
+          Properties:
+            AutoStart: =true
+            Duration: =cmpLoadingScreen.MinDisplayTime
+            Height: =16
+            OnTimerEnd: =cmpLoadingScreen.OnReady()
+            Visible: =false
+            Width: =16
+
+      # ── Background fill ───────────────────────────────────
+      - rctBackground:
+          Control: Rectangle@2.3.0
+          Properties:
+            Fill: |-
+              =If(
+                cmpLoadingScreen.Theme = "Dark",
+                RGBA(26, 26, 26, 1),
+                RGBA(255, 255, 255, 1)
+              )
+            Height: =Parent.Height
+            Width: =Parent.Width
+
+      # ── Ambient glow — top left ───────────────────────────
+      - imgGlowTL:
+          Control: Image@2.2.3
+          Properties:
+            Height: =Max(Parent.Width, Parent.Height) * 0.65
+            Image: |-
+              =With(
+                {c: Substitute(JSON(cmpLoadingScreen.AccentColor), """", "")},
+                "data:image/svg+xml," & EncodeUrl(
+                  "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><defs><radialGradient id='g' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='" & c & "' stop-opacity='" & If(cmpLoadingScreen.Theme = "Dark", "0.22", "0.18") & "'/><stop offset='40%' stop-color='" & c & "' stop-opacity='" & If(cmpLoadingScreen.Theme = "Dark", "0.08", "0.06") & "'/><stop offset='100%' stop-color='" & c & "' stop-opacity='0'/></radialGradient></defs><ellipse cx='300' cy='300' rx='300' ry='300' fill='url(#g)'/></svg>"
+                )
+              )
+            Width: =Self.Height
+            X: =Self.Width * -0.15
+            Y: =Self.Height * -0.25
+
+      # ── Ambient glow — bottom right ───────────────────────
+      - imgGlowBR:
+          Control: Image@2.2.3
+          Properties:
+            Height: =Max(Parent.Width, Parent.Height) * 0.55
+            Image: |-
+              =With(
+                {c: Substitute(JSON(cmpLoadingScreen.AccentColor), """", "")},
+                "data:image/svg+xml," & EncodeUrl(
+                  "<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><defs><radialGradient id='g' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='" & c & "' stop-opacity='" & If(cmpLoadingScreen.Theme = "Dark", "0.14", "0.12") & "'/><stop offset='50%' stop-color='" & c & "' stop-opacity='" & If(cmpLoadingScreen.Theme = "Dark", "0.05", "0.04") & "'/><stop offset='100%' stop-color='" & c & "' stop-opacity='0'/></radialGradient></defs><ellipse cx='250' cy='250' rx='250' ry='250' fill='url(#g)'/></svg>"
+                )
+              )
+            Width: =Self.Height
+            X: =Parent.Width - Self.Width * 0.8
+            Y: =Parent.Height - Self.Height * 0.8
+
+      # ── Ambient glow — center ─────────────────────────────
+      - imgGlowCenter:
+          Control: Image@2.2.3
+          Properties:
+            Height: =Max(Parent.Width, Parent.Height) * 0.8
+            Image: |-
+              =With(
+                {c: Substitute(JSON(cmpLoadingScreen.AccentColor), """", "")},
+                "data:image/svg+xml," & EncodeUrl(
+                  "<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><defs><radialGradient id='g' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='" & c & "' stop-opacity='" & If(cmpLoadingScreen.Theme = "Dark", "0.14", "0.10") & "'/><stop offset='35%' stop-color='" & c & "' stop-opacity='" & If(cmpLoadingScreen.Theme = "Dark", "0.05", "0.03") & "'/><stop offset='68%' stop-color='" & c & "' stop-opacity='0'/></radialGradient></defs><ellipse cx='350' cy='350' rx='350' ry='350' fill='url(#g)'/></svg>"
+                )
+              )
+            Width: =Self.Height
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =(Parent.Height - Self.Height) / 2
+
+      # ── Center content stack ──────────────────────────────
+      - cntLoadingCenter:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =Color.Transparent
+            Height: =340
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =16
+            PaddingBottom: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+            Y: =(Parent.Height - 340) / 2 - 16
+          Children:
+
+            # ── Logo mark with ring ─────────────────────────
+            - cntLogoWrap:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  DropShadow: =DropShadow.None
+                  Fill: =Color.Transparent
+                  FillPortions: =0
+                  Height: =120
+                  Width: =120
+                Children:
+
+                  # Solid logo square
+                  - imgLogoMark:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cmpLoadingScreen.AccentColor
+                        Height: =88
+                        RadiusBottomLeft: =20
+                        RadiusBottomRight: =20
+                        RadiusTopLeft: =20
+                        RadiusTopRight: =20
+                        Width: =88
+                        X: =16
+                        Y: =16
+                      Children:
+                        - lblLogoLetter:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(26, 26, 26, 1)
+                              Font: =Font.'Lato Black'
+                              FontWeight: =FontWeight.Bold
+                              Height: =88
+                              Size: =40
+                              Text: =cmpLoadingScreen.LogoLetter
+                              Width: =88
+
+                  # Animated ring border
+                  - cntRing:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: |-
+                          =If(
+                            cmpLoadingScreen.Theme = "Dark",
+                            RGBA(150, 201, 168, Max(0, 0.50 * (1 - tmrRing.Value / tmrRing.Duration))),
+                            RGBA(105, 140, 117, Max(0, 0.45 * (1 - tmrRing.Value / tmrRing.Duration)))
+                          )
+                        BorderThickness: =1 + 4 * (tmrRing.Value / tmrRing.Duration)
+                        DropShadow: =DropShadow.None
+                        Fill: =Color.Transparent
+                        Height: =imgLogoMark.Width + 16
+                        RadiusBottomLeft: =24
+                        RadiusBottomRight: =24
+                        RadiusTopLeft: =24
+                        RadiusTopRight: =24
+                        Width: =imgLogoMark.Width + 16
+                        X: =8
+                        Y: =8
+                      Children:
+                        - tmrRing:
+                            Control: Timer@2.1.0
+                            Properties:
+                              AutoStart: =true
+                              Duration: =1200
+                              Height: =16
+                              Repeat: =true
+                              Visible: =false
+                              Width: =16
+
+            # ── Wordmark ────────────────────────────────────
+            - htxWordmark:
+                Control: HtmlViewer@2.1.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  AutoHeight: =true
+                  Height: =52
+                  HtmlText: |-
+                    ="<div style='font-family:Lato,Helvetica Neue,Helvetica,sans-serif;font-size:30px;font-weight:900;line-height:52px;text-align:center;white-space:nowrap;letter-spacing:-0.02em;color:" &
+                    If(cmpLoadingScreen.Theme = "Dark", "#F4F4F2", "#1A1A1A") & "'>" &
+                    cmpLoadingScreen.AppName &
+                    If(
+                      !IsBlank(cmpLoadingScreen.AppNameAccent),
+                      "<span style='color:" & Substitute(JSON(cmpLoadingScreen.AccentColor), """", "") & "'>&nbsp;" & cmpLoadingScreen.AppNameAccent & "</span>",
+                      ""
+                    ) &
+                    "</div>"
+                  Width: =
+
+            # ── Subtitle ────────────────────────────────────
+            - lblSubtitle:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Color: |-
+                    =If(
+                      cmpLoadingScreen.Theme = "Dark",
+                      RGBA(153, 153, 153, 1),
+                      RGBA(107, 114, 128, 1)
+                    )
+                  Font: =Font.'Lato'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =20
+                  Size: =11
+                  Text: =Upper(cmpLoadingScreen.AppSubtitle)
+                  Width: =
+
+            # ── Accent divider ──────────────────────────────
+            - rctDivider:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =cmpLoadingScreen.AccentColor
+                  Height: =2
+                  Width: =52
+
+            # ── Progress bar ────────────────────────────────
+            - pbrLoading:
+                Control: Progress@1.1.34
+                Properties:
+                  BasePaletteColor: =cmpLoadingScreen.AccentColor
+                  Height: =3
+                  Indeterminate: =true
+                  Visible: =IsBlank(cmpLoadingScreen.ErrorMessage)
+                  Width: =Min(276, Parent.Width - 64)
+
+            # ── Status message / error ──────────────────────
+            - lblStatus:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Color: |-
+                    =If(
+                      !IsBlank(cmpLoadingScreen.ErrorMessage),
+                      RGBA(217, 79, 79, 1),
+                      If(
+                        cmpLoadingScreen.Theme = "Dark",
+                        RGBA(153, 153, 153, 1),
+                        RGBA(107, 114, 128, 1)
+                      )
+                    )
+                  Font: =Font.'Lato'
+                  Height: =20
+                  Size: =11
+                  Text: |-
+                    =If(
+                      !IsBlank(cmpLoadingScreen.ErrorMessage),
+                      cmpLoadingScreen.ErrorMessage,
+                      Coalesce(
+                        Index(
+                          cmpLoadingScreen.LoadingSteps,
+                          Max(cmpLoadingScreen.CurrentStep, 1)
+                        ).msg,
+                        "Loading…"
+                      )
+                    )
+                  Width: =
+
+            # ── Step dots ───────────────────────────────────
+            - galDots:
+                Control: Gallery@2.15.0
+                Variant: Horizontal
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  FillPortions: =0
+                  Height: =9
+                  Items: =Sequence(CountRows(cmpLoadingScreen.LoadingSteps))
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =14
+                  Visible: =IsBlank(cmpLoadingScreen.ErrorMessage)
+                  Width: =CountRows(cmpLoadingScreen.LoadingSteps) * 14 - 8
+                Children:
+                  - cntDot:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: |-
+                          =If(
+                            ThisItem.Value < cmpLoadingScreen.CurrentStep,
+                            RGBA(105, 140, 117, 1),
+                            If(
+                              ThisItem.Value = cmpLoadingScreen.CurrentStep,
+                              cmpLoadingScreen.AccentColor,
+                              If(
+                                cmpLoadingScreen.Theme = "Dark",
+                                RGBA(74, 74, 74, 1),
+                                RGBA(209, 213, 219, 1)
+                              )
+                            )
+                          )
+                        Height: =6
+                        RadiusBottomLeft: =99
+                        RadiusBottomRight: =99
+                        RadiusTopLeft: =99
+                        RadiusTopRight: =99
+                        Width: =6
+                        X: =0
+                        Y: =1
+
+      # ── Version badge at bottom ───────────────────────────
+      - lblVersion:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            Color: =RGBA(105, 140, 117, 1)
+            Font: =Font.'Lato'
+            Height: =16
+            Size: =9
+            Text: =cmpLoadingScreen.CompanyName & "  ·  " & cmpLoadingScreen.AppVersion
+            Width: =Parent.Width
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =Parent.Height - 40

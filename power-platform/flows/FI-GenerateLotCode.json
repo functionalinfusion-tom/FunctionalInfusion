@@ -1,0 +1,21 @@
+{
+  "name": "FI-GenerateLotCode",
+  "description": "Generates a unique lot code on batch creation. Format: FI-[TYPE]-[YYMMDD]-[SEQ]. Server-side only to prevent race conditions.",
+  "trigger": "Dataverse - When a row is added",
+  "triggerTable": "fi_batchrecords",
+  "lotCodeFormat": "FI-[TYPE]-[YYMMDD]-[SEQ]",
+  "examples": ["FI-CAN-260412-001", "FI-GUM-260412-003", "FI-SHT-260412-001"],
+  "productTypeCodes": { "CAN": "Canned RTD", "GUM": "Gummies", "SHT": "Shots", "BTL": "Bottled spirits", "PKG": "Packaged dry" },
+  "steps": [
+    { "id": "1", "name": "Get BatchRecord", "type": "Dataverse - Get row by ID", "table": "fi_batchrecords", "rowId": "@{triggerOutputs()?['body/fi_batchrecordid']}" },
+    { "id": "2", "name": "Get Recipe Master", "type": "Dataverse - Get row by ID", "table": "fi_recipemasters", "rowId": "@{outputs('Get_BatchRecord')?['body/_fi_recipemasterid_value']}" },
+    { "id": "3", "name": "Build date string YYMMDD", "type": "Compose", "inputs": "@{formatDateTime(utcNow(), 'yyMMdd')}" },
+    { "id": "4", "name": "Count existing batches today with same type", "type": "Dataverse - List rows", "table": "fi_batchrecords", "filterQuery": "startswith(fi_lotcode, 'FI-@{outputs('Get_RecipeMaster')?['body/fi_productcode']}-@{outputs('Date_String')}')" },
+    { "id": "5", "name": "Calculate sequence", "type": "Compose", "inputs": "@{add(length(outputs('Count_batches_today')?['body/value']), 1)}" },
+    { "id": "6", "name": "Pad sequence 3 digits", "type": "Compose", "inputs": "@{padLeft(string(outputs('Calculate_sequence')), 3, '0')}" },
+    { "id": "7", "name": "Assemble lot code", "type": "Compose", "inputs": "FI-@{outputs('Get_RecipeMaster')?['body/fi_productcode']}-@{outputs('Date_String')}-@{outputs('Sequence_padded')}" },
+    { "id": "8", "name": "Patch lot code to BatchRecord", "type": "Dataverse - Update row", "table": "fi_batchrecords", "rowId": "@{triggerOutputs()?['body/fi_batchrecordid']}", "body": { "fi_lotcode": "@{outputs('Assemble_lot_code')}" } },
+    { "id": "9", "name": "Write Create audit log", "type": "Dataverse - Add new row", "table": "fi_auditlogs", "body": { "fi_name": "Create-Batch-@{outputs('Assemble_lot_code')}", "fi_entityname": "fi_batchrecord", "fi_recordid": "@{triggerOutputs()?['body/fi_batchrecordid']}", "fi_action": 10004000, "fi_newvalue": "@{outputs('Assemble_lot_code')}", "fi_changedbyname": "@{triggerOutputs()?['body/_createdby_value@OData.Community.Display.V1.FormattedValue']}", "fi_changedon": "@{utcNow()}" } }
+  ],
+  "concurrencyNote": "Add 500ms delay + retry if two batches created simultaneously."
+}

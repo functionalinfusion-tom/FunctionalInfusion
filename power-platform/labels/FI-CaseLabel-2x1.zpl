@@ -1,0 +1,36 @@
+; Functional Infusion 2x1 Case Label — 203dpi
+; Variables: {{LOT_CODE}} {{PRODUCT}} {{CUSTOMER}} {{MFG_DATE}} {{EXP_DATE}} {{BATCH_SIZE}}
+^XA
+^PW406
+^LL203
+^CI28
+^CF0,16
+^FO10,8^FDFunctional Infusion^FS
+^CF0,24
+^FO10,26^FD{{PRODUCT}}^FS
+^CF0,16
+^FO10,58^FD{{CUSTOMER}}^FS
+^FO10,76^GB240,1,1^FS
+^CF0,14
+^FO10,82^FDLot:^FS
+^CF0,20
+^FO50,78^FD{{LOT_CODE}}^FS
+^CF0,14
+^FO10,108^FDMfg: {{MFG_DATE}}^FS
+^FO10,126^FDExp: {{EXP_DATE}}^FS
+^FO10,144^FDSize: {{BATCH_SIZE}}^FS
+^BY1,3,40
+^FO260,8
+^BCN,40,N,N
+^FD{{LOT_CODE}}^FS
+^CF0,12
+^FO260,54^FD{{LOT_CODE}}^FS
+^FO260,72
+^BQN,2,3
+^FDMA,{{LOT_CODE}}^FS
+^CF0,12
+^FO260,152^FDScan for details^FS
+^CF0,12
+^FO10,170^FD300 De Lish Us Ave · Waupaca, WI · (715) 256-7785^FS
+^XZ
+; Send via HTTP POST to printer IP:9100 (raw ZPL)

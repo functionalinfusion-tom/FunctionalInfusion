@@ -1,0 +1,27 @@
+{
+  "name": "FI-ApproveRecipeVersion",
+  "description": "Atomically approves a recipe version, supersedes the current active version, and writes audit log entries. Triggered from canvas app via PowerApps trigger. MUST run server-side.",
+  "trigger": "PowerApps",
+  "inputs": {
+    "recipeVersionId": { "type": "string", "description": "GUID of RecipeVersion to approve" },
+    "approverEmail":   { "type": "string", "description": "Email of approving user" },
+    "approverName":    { "type": "string", "description": "Full name of approving user" },
+    "approvedDateTime":{ "type": "string", "description": "ISO 8601 datetime from canvas app Now()" }
+  },
+  "steps": [
+    { "id": "1", "name": "Get Recipe Version being approved", "type": "Dataverse - Get row by ID", "table": "fi_recipeversions", "rowId": "@{triggerBody()['recipeVersionId']}" },
+    { "id": "2", "name": "Get Recipe Master ID", "type": "Compose", "inputs": "@{outputs('Get_Recipe_Version_being_approved')?['body/fi_recipemasterid']}" },
+    { "id": "3", "name": "Find currently Active version for this Master", "type": "Dataverse - List rows", "table": "fi_recipeversions", "filterQuery": "fi_recipemasterid eq '@{outputs('Get_Recipe_Master_ID')}' and fi_status eq 10003002 and fi_recipeversionid ne '@{triggerBody()['recipeVersionId']}'", "notes": "10003002 = Active" },
+    { "id": "4", "name": "Condition - existing Active version?", "type": "Condition", "expression": "@greater(length(outputs('Find_currently_Active_version')?['body/value']), 0)",
+      "yes": [
+        { "id": "4a", "name": "Supersede old Active version", "type": "Dataverse - Update row", "table": "fi_recipeversions", "rowId": "@{first(outputs('Find_currently_Active_version')?['body/value'])?['fi_recipeversionid']}", "body": { "fi_status": 10003003, "fi_supersededdate": "@{utcNow()}" } },
+        { "id": "4b", "name": "Write Supersede audit log", "type": "Dataverse - Add new row", "table": "fi_auditlogs", "body": { "fi_name": "Supersede-@{first(outputs('Find_currently_Active_version')?['body/value'])?['fi_name']}-@{utcNow()}", "fi_entityname": "fi_recipeversion", "fi_recordid": "@{first(outputs('Find_currently_Active_version')?['body/value'])?['fi_recipeversionid']}", "fi_action": 10004004, "fi_oldvalue": "Active", "fi_newvalue": "Superseded", "fi_changedbyname": "@{triggerBody()['approverName']}", "fi_changedon": "@{utcNow()}", "fi_changereason": "Superseded by @{outputs('Get_Recipe_Version_being_approved')?['body/fi_name']}" } }
+      ],
+      "no": []
+    },
+    { "id": "5", "name": "Activate the submitted version", "type": "Dataverse - Update row", "table": "fi_recipeversions", "rowId": "@{triggerBody()['recipeVersionId']}", "body": { "fi_status": 10003002, "fi_approvedbyname": "@{triggerBody()['approverName']}", "fi_approveddate": "@{triggerBody()['approvedDateTime']}", "fi_effectivedate": "@{utcNow()}" } },
+    { "id": "6", "name": "Write Approve audit log", "type": "Dataverse - Add new row", "table": "fi_auditlogs", "body": { "fi_name": "Approve-@{outputs('Get_Recipe_Version_being_approved')?['body/fi_name']}-@{utcNow()}", "fi_entityname": "fi_recipeversion", "fi_recordid": "@{triggerBody()['recipeVersionId']}", "fi_action": 10004002, "fi_oldvalue": "Pending Approval", "fi_newvalue": "Active", "fi_changedbyname": "@{triggerBody()['approverName']}", "fi_changedon": "@{utcNow()}" } },
+    { "id": "7", "name": "Send approval notification email", "type": "Office 365 Outlook - Send email", "to": "@{outputs('Get_Recipe_Version_being_approved')?['body/fi_createdbyname']}", "subject": "Recipe Approved: @{outputs('Get_Recipe_Version_being_approved')?['body/fi_name']}", "body": "Your recipe version has been approved and is now Active.\n\nApproved by: @{triggerBody()['approverName']}\nEffective: @{utcNow()}\n\nFunctional Infusion Quality System" }
+  ],
+  "errorHandling": "On failure: email billing@functionalinfusion.com with flow run ID. Do NOT leave a version in PendingApproval with a superseded Active version."
+}
