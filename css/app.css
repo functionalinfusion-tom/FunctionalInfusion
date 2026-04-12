@@ -1,0 +1,1204 @@
+/* ============================================================
+   Functional Infusion — App Component Styles
+   Version: 1.0.0
+   Requires: variables.css, global.css loaded first.
+
+   Mirrors the PowerApps canvas-app design system in CSS.
+   Covers: responsive app shell, form layouts, data views,
+   icon/button spacing, and touch-friendly component sizing.
+   ============================================================ */
+
+/* ── 1. App Shell Layout ─────────────────────────────────────
+   Flexible shell: optional sidebar + scrollable content area.
+   ─────────────────────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--color-neutral);
+}
+
+.app-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: var(--z-sticky);
+}
+
+.app-sidebar-header {
+  padding: var(--space-6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.app-sidebar-header img {
+  height: 36px;
+  width: auto;
+}
+
+.app-sidebar-nav {
+  flex: 1;
+  padding: var(--space-4) 0;
+}
+
+.app-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  min-height: var(--touch-min);
+}
+
+.app-sidebar-link:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.app-sidebar-link[aria-current="page"],
+.app-sidebar-link.active {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--color-primary);
+  padding-left: calc(var(--space-6) - 3px);
+}
+
+.app-sidebar-link svg {
+  width: var(--icon-md);
+  height: var(--icon-md);
+  flex-shrink: 0;
+}
+
+.app-sidebar-footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Main content area */
+.app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 2. App Header / Toolbar ─────────────────────────────────
+   Top bar with title, breadcrumbs, and action buttons.
+   ─────────────────────────────────────────────────────────── */
+.app-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: var(--nav-height);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.app-header-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  line-height: 1.2;
+  color: var(--color-charcoal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+/* Mobile sidebar toggle */
+.app-sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  color: var(--color-charcoal);
+  transition: background-color var(--transition-fast);
+}
+
+.app-sidebar-toggle:hover {
+  background: var(--color-gray-100);
+}
+
+.app-sidebar-toggle svg {
+  width: var(--icon-md);
+  height: var(--icon-md);
+}
+
+/* ── 3. App Content Area ─────────────────────────────────────
+   Scrollable content region with consistent padding.
+   ─────────────────────────────────────────────────────────── */
+.app-content {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.app-content-narrow {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.app-content-wide {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+/* ── 4. App Buttons ──────────────────────────────────────────
+   Extends .btn with app-specific sizes and icon alignment.
+   Minimum touch target: 48px.
+   ─────────────────────────────────────────────────────────── */
+.app-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--btn-height);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color var(--transition-base),
+              color var(--transition-base),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
+  outline-offset: 3px;
+}
+
+.app-btn:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+}
+
+.app-btn:active {
+  transform: scale(0.98);
+}
+
+/* Primary — green fill, dark text */
+.app-btn--primary {
+  background: var(--color-primary);
+  color: var(--color-charcoal);
+  border-color: var(--color-primary);
+}
+
+.app-btn--primary:hover {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: var(--color-white);
+}
+
+/* Secondary — outlined */
+.app-btn--secondary {
+  background: var(--color-white);
+  color: var(--color-charcoal);
+  border-color: var(--color-gray-300);
+}
+
+.app-btn--secondary:hover {
+  background: var(--color-primary-xlight);
+  border-color: var(--color-primary);
+}
+
+/* Tertiary — charcoal fill */
+.app-btn--tertiary {
+  background: var(--color-gray-800);
+  color: var(--color-white);
+  border-color: var(--color-gray-800);
+}
+
+.app-btn--tertiary:hover {
+  background: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+}
+
+/* Ghost — no border, no fill */
+.app-btn--ghost {
+  background: transparent;
+  color: var(--color-primary-dark);
+}
+
+.app-btn--ghost:hover {
+  background: var(--color-primary-xlight);
+}
+
+/* Danger */
+.app-btn--danger {
+  background: var(--color-danger);
+  color: var(--color-white);
+  border-color: var(--color-danger);
+}
+
+.app-btn--danger:hover {
+  background: #B91C1C;
+  border-color: #B91C1C;
+}
+
+/* Button sizes */
+.app-btn--sm {
+  min-height: var(--btn-height-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.app-btn--lg {
+  min-height: var(--btn-height-lg);
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+}
+
+/* Icon-only button (square) */
+.app-btn--icon {
+  width: var(--btn-height);
+  min-height: var(--btn-height);
+  padding: 0;
+}
+
+.app-btn--icon.app-btn--sm {
+  width: var(--btn-height-sm);
+  min-height: var(--btn-height-sm);
+}
+
+/* Button icon sizing */
+.app-btn svg {
+  width: var(--icon-md);
+  height: var(--icon-md);
+  flex-shrink: 0;
+}
+
+.app-btn--sm svg {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+
+/* Button group */
+.app-btn-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ── 5. Icon Sizing & Spacing ────────────────────────────────
+   Consistent icon containers for inline, list, and card use.
+   ─────────────────────────────────────────────────────────── */
+.app-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-primary-dark);
+}
+
+.app-icon--sm  { width: var(--icon-sm);  height: var(--icon-sm); }
+.app-icon--md  { width: var(--icon-md);  height: var(--icon-md); }
+.app-icon--lg  { width: var(--icon-lg);  height: var(--icon-lg); }
+.app-icon--xl  { width: var(--icon-xl);  height: var(--icon-xl); }
+
+.app-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Circled icon badge (e.g. card accent) */
+.app-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-xlight);
+  color: var(--color-primary-dark);
+}
+
+.app-icon-badge svg {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  stroke-width: 1.5;
+}
+
+.app-icon-badge--lg {
+  width: 64px;
+  height: 64px;
+}
+
+.app-icon-badge--lg svg {
+  width: 36px;
+  height: 36px;
+}
+
+/* ── 6. Form Controls ────────────────────────────────────────
+   Inputs, selects, textareas, labels — app-context styling.
+   ─────────────────────────────────────────────────────────── */
+.app-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.app-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.app-form-label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-charcoal);
+  letter-spacing: 0.01em;
+}
+
+.app-form-label--required::after {
+  content: " *";
+  color: var(--color-danger);
+}
+
+.app-form-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.app-input,
+.app-select,
+.app-textarea {
+  width: 100%;
+  min-height: var(--input-height);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-charcoal);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.app-input:hover,
+.app-select:hover,
+.app-textarea:hover {
+  border-color: var(--color-gray-400);
+}
+
+.app-input:focus,
+.app-select:focus,
+.app-textarea:focus {
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 3px rgba(150, 201, 168, 0.25);
+  outline: none;
+}
+
+.app-input--sm,
+.app-select--sm {
+  min-height: var(--input-height-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.app-input--lg,
+.app-select--lg {
+  min-height: var(--input-height-lg);
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+}
+
+.app-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Input with icon */
+.app-input-icon {
+  position: relative;
+}
+
+.app-input-icon .app-input {
+  padding-left: calc(var(--space-4) + var(--icon-md) + var(--space-2));
+}
+
+.app-input-icon svg {
+  position: absolute;
+  top: 50%;
+  left: var(--space-4);
+  transform: translateY(-50%);
+  width: var(--icon-md);
+  height: var(--icon-md);
+  color: var(--color-gray-400);
+  pointer-events: none;
+}
+
+/* Error state */
+.app-input--error,
+.app-select--error,
+.app-textarea--error {
+  border-color: var(--color-danger);
+}
+
+.app-input--error:focus,
+.app-select--error:focus,
+.app-textarea--error:focus {
+  box-shadow: 0 0 0 3px rgba(217, 79, 79, 0.2);
+}
+
+.app-form-error {
+  font-size: var(--text-xs);
+  color: var(--color-danger);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* ── 7. App Cards ────────────────────────────────────────────
+   Extends base .card with app-specific patterns.
+   ─────────────────────────────────────────────────────────── */
+.app-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.app-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-card-header h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.app-card-body {
+  padding: var(--space-6);
+}
+
+.app-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-gray-50);
+}
+
+/* Stat card — for KPI/metric display */
+.app-stat-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.app-stat-card-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.app-stat-card-value {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  color: var(--color-charcoal);
+}
+
+.app-stat-card-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-top: var(--space-2);
+}
+
+.app-stat-card-delta--up   { color: var(--color-success); }
+.app-stat-card-delta--down { color: var(--color-danger); }
+
+/* ── 8. Data Table ───────────────────────────────────────────
+   Clean table for app data views, sortable columns, actions.
+   ─────────────────────────────────────────────────────────── */
+.app-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.app-table th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  background: var(--color-gray-50);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.app-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-gray-100);
+  color: var(--color-charcoal);
+  vertical-align: middle;
+}
+
+.app-table tr:last-child td {
+  border-bottom: none;
+}
+
+.app-table tr:hover td {
+  background: var(--color-primary-xlight);
+}
+
+/* Row with clickable action */
+.app-table tr[role="button"] {
+  cursor: pointer;
+}
+
+/* Cell alignment helpers */
+.app-table .cell-right { text-align: right; }
+.app-table .cell-center { text-align: center; }
+
+/* Action cell */
+.app-table .cell-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ── 9. List View ────────────────────────────────────────────
+   Vertical list of items (records, items, notifications).
+   ─────────────────────────────────────────────────────────── */
+.app-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-gray-100);
+  transition: background-color var(--transition-fast);
+  min-height: 64px;
+}
+
+.app-list-item:last-child {
+  border-bottom: none;
+}
+
+.app-list-item:hover {
+  background: var(--color-primary-xlight);
+}
+
+.app-list-item-icon {
+  flex-shrink: 0;
+}
+
+.app-list-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-list-item-title {
+  font-weight: 500;
+  color: var(--color-charcoal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-list-item-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.app-list-item-meta {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── 10. Status Badges / Tags ────────────────────────────────
+   Small inline labels for status, category, priority.
+   ─────────────────────────────────────────────────────────── */
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: 9999px;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.app-badge--neutral {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.app-badge--success {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.app-badge--warning {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.app-badge--danger {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.app-badge--info {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.app-badge--primary {
+  background: var(--color-primary-xlight);
+  color: var(--color-primary-dark);
+}
+
+/* ── 11. Tabs ────────────────────────────────────────────────
+   Horizontal tab navigation for switching views.
+   ─────────────────────────────────────────────────────────── */
+.app-tabs {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 2px solid var(--color-border);
+  overflow-x: auto;
+  gap: 0;
+}
+
+.app-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  cursor: pointer;
+  min-height: var(--touch-min);
+  background: none;
+}
+
+.app-tab:hover {
+  color: var(--color-charcoal);
+}
+
+.app-tab[aria-selected="true"],
+.app-tab.active {
+  color: var(--color-primary-dark);
+  border-bottom-color: var(--color-primary-dark);
+}
+
+.app-tab svg {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+
+.app-tab-panel {
+  padding-top: var(--space-6);
+}
+
+/* ── 12. Empty State ─────────────────────────────────────────
+   Placeholder for empty tables, lists, or search results.
+   ─────────────────────────────────────────────────────────── */
+.app-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-16) var(--space-6);
+  color: var(--color-text-muted);
+}
+
+.app-empty svg {
+  width: 64px;
+  height: 64px;
+  color: var(--color-gray-300);
+  margin-bottom: var(--space-4);
+}
+
+.app-empty h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-2);
+}
+
+.app-empty p {
+  font-size: var(--text-sm);
+  max-width: 360px;
+}
+
+.app-empty .app-btn {
+  margin-top: var(--space-6);
+}
+
+/* ── 13. Spacing Utilities ───────────────────────────────────
+   Consistent margin/padding helpers based on 4px grid.
+   Use sparingly — prefer component-level spacing.
+   ─────────────────────────────────────────────────────────── */
+
+/* Stack: vertical spacing between sibling elements */
+.app-stack > * + * { margin-top: var(--space-4); }
+.app-stack--xs > * + * { margin-top: var(--space-1); }
+.app-stack--sm > * + * { margin-top: var(--space-2); }
+.app-stack--md > * + * { margin-top: var(--space-6); }
+.app-stack--lg > * + * { margin-top: var(--space-8); }
+.app-stack--xl > * + * { margin-top: var(--space-12); }
+
+/* Cluster: horizontal row with wrapping */
+.app-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.app-cluster--sm { gap: var(--space-2); }
+.app-cluster--lg { gap: var(--space-6); }
+.app-cluster--between { justify-content: space-between; }
+
+/* Section-level vertical padding */
+.app-section { padding-block: var(--space-8); }
+.app-section--lg { padding-block: var(--space-12); }
+
+/* Divider */
+.app-divider {
+  height: 1px;
+  background: var(--color-border);
+  border: none;
+  margin-block: var(--space-6);
+}
+
+.app-divider--sm { margin-block: var(--space-3); }
+.app-divider--lg { margin-block: var(--space-8); }
+
+/* ── 14. Responsive Grid System ──────────────────────────────
+   App-context grids that reflow at defined breakpoints.
+   ─────────────────────────────────────────────────────────── */
+.app-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.app-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.app-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.app-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Auto-fill: flexible column count based on minimum width */
+.app-grid--auto-sm { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.app-grid--auto-md { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.app-grid--auto-lg { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+
+/* ── 15. Modal / Dialog ──────────────────────────────────────
+   Overlay dialog for detail views and confirmations.
+   ─────────────────────────────────────────────────────────── */
+.app-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.app-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.app-modal {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100dvh - var(--space-12));
+  display: flex;
+  flex-direction: column;
+  transform: translateY(8px);
+  transition: transform var(--transition-base);
+}
+
+.app-modal-overlay.open .app-modal {
+  transform: translateY(0);
+}
+
+.app-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-modal-header h2 {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin: 0;
+}
+
+.app-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+}
+
+.app-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── 16. Toast / Notification ────────────────────────────────
+   Floating feedback messages.
+   ─────────────────────────────────────────────────────────── */
+.app-toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-3);
+  z-index: var(--z-toast);
+  pointer-events: none;
+}
+
+.app-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  min-width: 300px;
+  max-width: 480px;
+  pointer-events: auto;
+  animation: toastIn 0.3s ease both;
+}
+
+.app-toast--success { border-left: 4px solid var(--color-success); }
+.app-toast--error   { border-left: 4px solid var(--color-danger); }
+.app-toast--warning { border-left: 4px solid var(--color-warning); }
+.app-toast--info    { border-left: 4px solid var(--color-info); }
+
+.app-toast svg {
+  width: var(--icon-md);
+  height: var(--icon-md);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.app-toast--success svg { color: var(--color-success); }
+.app-toast--error svg   { color: var(--color-danger); }
+.app-toast--warning svg { color: var(--color-warning); }
+.app-toast--info svg    { color: var(--color-info); }
+
+.app-toast-content {
+  flex: 1;
+  font-size: var(--text-sm);
+}
+
+.app-toast-title {
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-1);
+}
+
+.app-toast-message {
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 17. Responsive Breakpoints ──────────────────────────────
+   Mobile-first: styles apply at the breakpoint and up.
+   sm: 480px  |  md: 768px  |  lg: 992px  |  xl: 1200px
+   ─────────────────────────────────────────────────────────── */
+
+/* ——— Small (≤ 768px): Mobile ——— */
+@media (max-width: 768px) {
+  /* Sidebar collapses to off-canvas overlay */
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform var(--transition-slow);
+    z-index: var(--z-overlay);
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .app-sidebar-toggle {
+    display: flex;
+  }
+
+  /* Reduce padding on mobile */
+  .app-content {
+    padding: var(--space-4);
+  }
+
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Stack form rows vertically */
+  .app-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Grids go single column */
+  .app-grid--2,
+  .app-grid--3,
+  .app-grid--4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Card padding tightens */
+  .app-card-body {
+    padding: var(--space-4);
+  }
+
+  .app-card-header,
+  .app-card-footer {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* List items reduce padding */
+  .app-list-item {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Buttons go full-width in stacks */
+  .app-btn-group--responsive {
+    flex-direction: column;
+  }
+
+  .app-btn-group--responsive .app-btn {
+    width: 100%;
+  }
+
+  /* Modal goes near full-screen */
+  .app-modal {
+    max-width: 100%;
+    max-height: calc(100dvh - var(--space-4));
+    border-radius: var(--radius-md);
+  }
+
+  .app-modal-overlay {
+    padding: var(--space-2);
+  }
+
+  /* Toasts go full-width bottom */
+  .app-toast-container {
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: var(--space-4);
+  }
+
+  .app-toast {
+    min-width: 0;
+    max-width: none;
+  }
+
+  /* Table horizontal scroll kicks in at this size */
+  .app-table th,
+  .app-table td {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* Tabs scroll horizontally */
+  .app-tabs {
+    gap: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-tab {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Section spacing reduces */
+  .app-section { padding-block: var(--space-6); }
+  .app-section--lg { padding-block: var(--space-8); }
+}
+
+/* ——— Medium (769px – 991px): Tablet ——— */
+@media (min-width: 769px) and (max-width: 991px) {
+  .app-sidebar {
+    width: 72px;
+  }
+
+  /* Icon-only sidebar on tablet */
+  .app-sidebar-link span {
+    display: none;
+  }
+
+  .app-sidebar-link {
+    justify-content: center;
+    padding: var(--space-3);
+  }
+
+  .app-sidebar-header {
+    padding: var(--space-4);
+    text-align: center;
+  }
+
+  .app-sidebar-footer {
+    text-align: center;
+    padding: var(--space-4);
+  }
+
+  /* 2-up grids on tablet */
+  .app-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .app-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ——— Large (≥ 992px): Desktop ——— */
+@media (min-width: 992px) {
+  .app-content {
+    padding: var(--space-8);
+  }
+
+  .app-header {
+    padding: var(--space-4) var(--space-8);
+  }
+}
+
+/* ── 18. Print ───────────────────────────────────────────────
+   Hide chrome, flatten layout for print.
+   ─────────────────────────────────────────────────────────── */
+@media print {
+  .app-sidebar,
+  .app-header,
+  .app-toast-container,
+  .app-modal-overlay {
+    display: none !important;
+  }
+
+  .app-main {
+    width: 100%;
+  }
+
+  .app-content {
+    padding: 0;
+  }
+
+  .app-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+}
+
+/* ── 19. Reduced Motion ──────────────────────────────────────
+   Respect user preference for reduced motion.
+   ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .app-toast {
+    animation: none;
+  }
+
+  .app-modal,
+  .app-sidebar {
+    transition: none;
+  }
+}

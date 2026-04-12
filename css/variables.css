@@ -18,6 +18,32 @@
   --color-text-muted:     #6B7280;
   --color-error:          #D94F4F;
 
+  /* ── Extended Palette (App) ─────────────────────────── */
+  --color-yellow:         #FFE600;
+  --color-yellow-light:   #FFF27F;
+  --color-teal:           #00A3AE;
+  --color-teal-light:     #7FD1D6;
+  --color-purple:         #91278F;
+  --color-purple-light:   #C893C7;
+  --color-lilac:          #AC98DB;
+  --color-lilac-light:    #D8D2E0;
+  --color-danger:         #D94F4F;
+  --color-warning:        #F59E0B;
+  --color-success:        #16A34A;
+  --color-info:           #0EA5E9;
+
+  /* ── Neutral Scale ──────────────────────────────────── */
+  --color-gray-900:       #1A1A1A;
+  --color-gray-800:       #333333;
+  --color-gray-700:       #4A4A4A;
+  --color-gray-600:       #646464;
+  --color-gray-500:       #808080;
+  --color-gray-400:       #999999;
+  --color-gray-300:       #C0C0C0;
+  --color-gray-200:       #D1D5DB;
+  --color-gray-100:       #F0F0F0;
+  --color-gray-50:        #F8F8F8;
+
   /* ── Typography ──────────────────────────────────────── */
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body:    'DM Sans', 'Helvetica Neue', Helvetica, sans-serif;
@@ -64,6 +90,34 @@
   --container-max: 1200px;
   --container-pad: var(--space-6);
   --nav-height:    72px;
+
+  /* ── Breakpoints (reference values for JS/docs) ─────── */
+  --bp-sm:  480px;
+  --bp-md:  768px;
+  --bp-lg:  992px;
+  --bp-xl:  1200px;
+
+  /* ── Touch Targets & Component Sizing ───────────────── */
+  --touch-min:        48px;
+  --icon-sm:          16px;
+  --icon-md:          24px;
+  --icon-lg:          32px;
+  --icon-xl:          48px;
+  --btn-height:       48px;
+  --btn-height-sm:    36px;
+  --btn-height-lg:    56px;
+  --input-height:     48px;
+  --input-height-sm:  36px;
+  --input-height-lg:  56px;
+
+  /* ── Z-Index Scale ──────────────────────────────────── */
+  --z-base:      1;
+  --z-dropdown:  100;
+  --z-sticky:    200;
+  --z-overlay:   500;
+  --z-modal:     600;
+  --z-toast:     700;
+  --z-nav:       1000;
 }
 
 /* ── Fluid container padding at small screens ───────────── */
