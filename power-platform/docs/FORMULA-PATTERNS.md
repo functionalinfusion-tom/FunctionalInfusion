@@ -417,3 +417,28 @@ Upper(Left(varActiveVersion.fi_recipemasterid.fi_productcode, 3)) & "-" &
 Text(Today(), "[$-en-US]yymmdd") & "-" &
 "???"  // sequence assigned by FI-GenerateLotCode flow on save
 ```
+
+## Inventory Lot — Remaining Qty Progress Bar
+
+```powerapps
+// Width property of progress bar rectangle (proportion of parent width)
+(ThisItem.fi_inventorylotid.fi_remainingqty / ThisItem.fi_inventorylotid.fi_receivedqty)
+
+// Color — red <10%, amber <25%, sage otherwise
+Switch(true,
+    (ThisItem.fi_inventorylotid.fi_remainingqty / ThisItem.fi_inventorylotid.fi_receivedqty) < 0.10, ColorValue("#dc2626"),
+    (ThisItem.fi_inventorylotid.fi_remainingqty / ThisItem.fi_inventorylotid.fi_receivedqty) < 0.25, ColorValue("#d97706"),
+    ColorValue("#96C9A8")
+)
+```
+
+## Navigation — Forward with Context & Back
+
+```powerapps
+// Forward with context
+Navigate(scnRecipeVersionDetail, ScreenTransition.Cover,
+    {varSelectedVersion: ThisItem, varSelectedMaster: galRecipeMaster.Selected})
+
+// Back
+Navigate(scnRecipeVersionList, ScreenTransition.UnCover)
+```
