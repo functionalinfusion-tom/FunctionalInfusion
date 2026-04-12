@@ -139,3 +139,20 @@ If(
 
 ### New Recipe Button
 - Visible=varIsQALead
+
+---
+
+## scnRecipeVersionList
+
+### Header
+- **Back:** `Navigate(scnRecipeMasterList, UnCover)`
+- **Title:** `varSelectedMaster.fi_name`
+
+### Gallery
+- **Items:** `SortByColumns(Filter(fi_recipeversion, fi_recipemasterid.fi_recipemasterid=varSelectedMaster.fi_recipemasterid), "fi_versionnumber", Descending)`
+- **Each row:** version label, status badge, approved by, effective date
+- OnSelect: `Set(varSelectedVersion, ThisItem); Navigate(scnRecipeVersionDetail, Cover)`
+
+### New Version Button
+- Visible=varIsQALead
+- OnSelect: `FI_CloneRecipeVersion.Run(…)` *(see FORMULA-PATTERNS.md — Clone section)*
