@@ -105,3 +105,25 @@ If(
     Navigate(scnBatchDetail, Cover)
 )
 ```
+
+---
+
+## scnScanLookup
+
+### Controls
+- **BarcodeReader1:** BarcodeType=BarcodeType.Any
+  - OnScan: *(see FORMULA-PATTERNS.md — Barcode Scanner section)*
+- **Manual entry:** TextInput, placeholder="Enter lot code manually"
+- **Lookup button:** `Set(varScannedRaw, txtManualLot.Text);` *(run same lookup logic)*
+
+### Result Panel
+- Visible=`!IsBlank(varMatchedLot)`
+- **Fields displayed:**
+  - Ingredient name
+  - Lot code
+  - On-hand qty
+  - Needed qty
+  - COA status
+  - Expiry date
+- **Confirm button:** *(see FORMULA-PATTERNS.md — Lot Assignment section)*
+- **Wrong button:** `Set(varMatchedLot, Blank()); Reset(BarcodeReader1)`
