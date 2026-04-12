@@ -101,6 +101,21 @@ Switch(
 )
 ```
 
+## Status Row Tint — Gallery TemplateFill
+
+```powerapps
+// Subtle background tint per status (use on gallery TemplateFill or container Fill)
+Switch(
+    ThisItem.fi_status,
+    'fi_status (fi_recipeversion)'.Draft,              ColorValue("#e8edeb"),
+    'fi_status (fi_recipeversion)'.'Pending Approval', ColorValue("#fffbeb"),
+    'fi_status (fi_recipeversion)'.Active,             ColorValue("#f0fdf4"),
+    'fi_status (fi_recipeversion)'.Superseded,         ColorValue("#f4f6f5"),
+    'fi_status (fi_recipeversion)'.Archived,           ColorValue("#fef2f2"),
+    ColorValue("#f4f6f5")
+)
+```
+
 ## Status Badge — Text Color
 
 ```powerapps
