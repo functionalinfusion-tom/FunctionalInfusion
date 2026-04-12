@@ -279,3 +279,31 @@ If(
     DisplayMode.View
 )
 ```
+
+## Batch Receipt — Scale Ingredients to Collection
+
+```powerapps
+// Call on navigate to batch receipt screen
+// Builds a local collection with scaled quantities and empty lot fields for operator entry
+ClearCollect(colBatchReceipt,
+    ForAll(
+        SortByColumns(
+            Filter(fi_recipeingredient,
+                fi_recipeversionid.fi_recipeversionid = varActiveVersion.fi_recipeversionid),
+            "fi_sortorder", SortOrder.Ascending
+        ),
+        {
+            IngredientName: fi_ingredientid.fi_name,
+            IngredientId:   fi_ingredientid.fi_ingredientid,
+            BaseQty:        fi_qtyperbaseunit,
+            ScaledQty:      fi_qtyperbaseunit * varBatchSize,
+            UOM:            Text(fi_uom),
+            IsCritical:     fi_iscritical,
+            SortOrder:      fi_sortorder,
+            Notes:          fi_notes,
+            LotCode:        "",
+            InventoryLotId: ""
+        }
+    )
+)
+```
