@@ -156,3 +156,32 @@ If(
 ### New Version Button
 - Visible=varIsQALead
 - OnSelect: `FI_CloneRecipeVersion.Run(…)` *(see FORMULA-PATTERNS.md — Clone section)*
+
+---
+
+## scnRecipeVersionDetail
+
+### All Inputs DisplayMode
+```powerapps
+If(varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Draft And varIsQALead, DisplayMode.Edit, DisplayMode.View)
+```
+
+### Fields
+- **Version label** (txtVersionLabel)
+- **Change reason** (txtChangeReason) — required, multiline
+- **Status badge** (read-only)
+- **Approved by, approved date** (read-only)
+
+### Action Buttons
+*(see FORMULA-PATTERNS.md — Button Visibility / State Machine section)*
+- **Save Draft**
+- **Submit for Approval**
+- **Approve** — calls `FI_ApproveRecipeVersion` flow
+- **Reject** — shows rejection reason input, patches status to Draft
+- **New Version** — calls `FI_CloneRecipeVersion` flow
+
+### Ingredient Sub-Gallery
+- **Items:** `SortByColumns(Filter(fi_recipeingredient, fi_recipeversionid.fi_recipeversionid=varSelectedVersion.fi_recipeversionid), "fi_sortorder", Ascending)`
+- **Edit button:** Visible=`varIsQALead And varSelectedVersion.fi_status='Draft'`
+  - OnSelect: `Set(varSelectedIngredient, ThisItem); Navigate(scnIngredientEditor, Cover)`
+- **Add Ingredient:** Visible=`varIsQALead And varSelectedVersion.fi_status='Draft'`
