@@ -185,3 +185,33 @@ If(varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Draft And varIs
 - **Edit button:** Visible=`varIsQALead And varSelectedVersion.fi_status='Draft'`
   - OnSelect: `Set(varSelectedIngredient, ThisItem); Navigate(scnIngredientEditor, Cover)`
 - **Add Ingredient:** Visible=`varIsQALead And varSelectedVersion.fi_status='Draft'`
+
+---
+
+## scnIngredientEditor
+
+### Fields
+- **Ingredient dropdown:** Items=`SortByColumns(Filter(fi_ingredient, fi_isactive=true), "fi_name", Ascending)`
+- **Qty per base unit:** TextInput, numeric
+- **UOM:** dropdown — same choice set as fi_baseuomtype
+- **Sort order:** TextInput, numeric
+- **Is Critical:** Toggle
+- **Notes:** TextInput, multiline
+
+### Save Button
+```powerapps
+Patch(fi_recipeingredient,
+    If(IsBlank(varSelectedIngredient), Defaults(fi_recipeingredient), varSelectedIngredient),
+    {
+        fi_recipeversionid: varSelectedVersion,
+        fi_ingredientid:    drpIngredient.Selected,
+        fi_qtyperbaseunit:  Value(txtQty.Text),
+        fi_uom:             drpUOM.Selected.Value,
+        fi_sortorder:       Value(txtSortOrder.Text),
+        fi_iscritical:      togCritical.Value,
+        fi_notes:           txtNotes.Text,
+        fi_name:            drpIngredient.Selected.fi_name & " - " & varSelectedVersion.fi_name
+    }
+);
+Navigate(scnRecipeVersionDetail, UnCover)
+```
