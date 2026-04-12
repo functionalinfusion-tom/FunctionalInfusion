@@ -269,3 +269,15 @@ LookUp(
     fi_name
 )
 ```
+
+## Form DisplayMode — Draft + QA Lead Gate
+
+```powerapps
+// Only allow editing when version is Draft AND user is QA Lead
+If(
+    varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Draft
+    And varIsQALead,
+    DisplayMode.Edit,
+    DisplayMode.View
+)
+```
