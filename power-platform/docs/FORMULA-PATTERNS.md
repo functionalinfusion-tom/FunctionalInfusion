@@ -314,3 +314,106 @@ ClearCollect(colBatchReceipt,
 // Use in a gallery label Text property to show scaled qty + unit
 Text(ThisItem.fi_qtyperbaseunit * varBatchSize, "[$-en-US]0.###") & " " & Text(ThisItem.fi_uom)
 ```
+
+## Barcode Scanner — Detect FI QR vs Supplier Barcode
+
+```powerapps
+// OnScan — handles both internal FI QR codes (JSON) and plain supplier barcodes
+Set(varScannedRaw, BarcodeReader1.Value);
+
+// Detect internal FI QR (JSON) vs external supplier barcode
+If(
+    StartsWith(varScannedRaw, "{"),
+    Set(varScannedLot,
+        Mid(varScannedRaw,
+            Find("""lotCode"":""", varScannedRaw) + 11,
+            Find("""", Mid(varScannedRaw, Find("""lotCode"":""", varScannedRaw) + 11)) - 1
+        )
+    ),
+    Set(varScannedLot, varScannedRaw)
+);
+
+Set(varMatchedLot,
+    LookUp(fi_inventorylot,
+        fi_supplierlot = varScannedLot Or fi_internallotcode = varScannedLot
+    )
+);
+
+If(
+    IsBlank(varMatchedLot),
+    Notify("Lot not found: " & varScannedLot, NotificationType.Warning),
+    Set(varShowScanResult, true)
+)
+```
+
+## Lot Assignment — Update Batch Receipt Collection
+
+```powerapps
+// After scan confirmation, assign matched lot to the target ingredient in colBatchReceipt
+UpdateIf(colBatchReceipt,
+    IngredientId = varScanTargetIng.IngredientId,
+    {
+        LotCode:        varMatchedLot.fi_internallotcode,
+        InventoryLotId: varMatchedLot.fi_inventorylotid
+    }
+);
+Notify(varMatchedLot.fi_ingredientid.fi_name & " lot confirmed", NotificationType.Success);
+Set(varShowScanResult, false);
+Navigate(scnNewBatch, ScreenTransition.UnCover)
+```
+
+## QA Test — Pass/Fail Calculated Label
+
+```powerapps
+// Use on a label Text property in QA test gallery — shows Pending, Pass, or Fail
+If(
+    IsBlank(ThisItem.fi_actualresult),
+    "Pending",
+    If(
+        And(
+            Value(ThisItem.fi_actualresult) >= ThisItem.fi_expectedmin,
+            Value(ThisItem.fi_actualresult) <= ThisItem.fi_expectedmax
+        ),
+        "Pass",
+        "Fail"
+    )
+)
+```
+
+## Button Visibility — Status + Role Gates
+
+```powerapps
+// btnSaveDraft — only Draft versions, QA Lead only
+btnSaveDraft.Visible   = varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Draft And varIsQALead
+
+// btnSubmit — Draft + QA Lead + change reason filled
+btnSubmit.Visible      = varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Draft
+                         And varIsQALead
+                         And !IsBlank(txtChangeReason.Text)
+
+// btnApprove — Pending Approval + QA Lead
+btnApprove.Visible     = varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.'Pending Approval'
+                         And varIsQALead
+
+// btnReject — Pending Approval + QA Lead
+btnReject.Visible      = varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.'Pending Approval'
+                         And varIsQALead
+
+// btnNewVersion — Active + QA Lead (creates new Draft from Active)
+btnNewVersion.Visible  = varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Active
+                         And varIsQALead
+
+// btnClone — Superseded + QA Lead (clone old version to new Draft)
+btnClone.Visible       = varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.Superseded
+                         And varIsQALead
+```
+
+## Lot Code Preview — Client-Side Format
+
+```powerapps
+// Preview label on batch creation screen — sequence is assigned server-side by FI-GenerateLotCode flow
+"FI-" &
+Upper(Left(varActiveVersion.fi_recipemasterid.fi_productcode, 3)) & "-" &
+Text(Today(), "[$-en-US]yymmdd") & "-" &
+"???"  // sequence assigned by FI-GenerateLotCode flow on save
+```
