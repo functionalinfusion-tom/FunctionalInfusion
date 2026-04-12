@@ -127,3 +127,15 @@ If(
   - Expiry date
 - **Confirm button:** *(see FORMULA-PATTERNS.md — Lot Assignment section)*
 - **Wrong button:** `Set(varMatchedLot, Blank()); Reset(BarcodeReader1)`
+
+---
+
+## scnRecipeMasterList
+
+### Gallery
+- **Items:** `SortByColumns(Filter(fi_recipemaster, fi_isactive=true), "fi_name", Ascending)`
+- **Each row:** recipe name, customer name, active version label, chevron
+- OnSelect: `Set(varSelectedMaster, ThisItem); Navigate(scnRecipeVersionList, Cover)`
+
+### New Recipe Button
+- Visible=varIsQALead
