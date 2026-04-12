@@ -163,21 +163,24 @@ If(
 )
 ```
 
-## Approve — Call Flow
+## Approve — Call Flow Button
 
 ```powerapps
-// QA Lead only — button Visible: varIsQALead
-Set(
-    varApproveResult,
-    'FI-ApproveRecipeVersion'.Run(
-        Text(varSelectedVersion.fi_recipeversionid),
-        varCurrentUser.Email,
-        varCurrentUser.FullName,
-        Text(Now(), DateTimeFormat.ISO8601)
-    )
+// Visible — only for Pending Approval versions when user is QA Lead
+varSelectedVersion.fi_status = 'fi_status (fi_recipeversion)'.'Pending Approval'
+And varIsQALead
+
+// OnSelect
+Set(varApproving, true);
+FI_ApproveRecipeVersion.Run(
+    varSelectedVersion.fi_recipeversionid,
+    varCurrentUser.Email,
+    varCurrentUser.FullName,
+    Text(Now(), "[$-en-US]yyyy-mm-ddThh:mm:ss")
 );
-Notify("Recipe approved and now Active.", NotificationType.Success);
-Navigate(scnRecipeDetail, ScreenTransition.None);
+Set(varApproving, false);
+Notify("Recipe version approved and activated.", NotificationType.Success);
+Navigate(RecipeVersionList, ScreenTransition.Fade)
 ```
 
 ## Clone — Call Flow
